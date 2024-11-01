@@ -40,6 +40,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ brew install node</span><br><span class="line">$ node -v</span><br></pre></td></tr></table></figure>
 
 <br>
+<br>
 
 <h3 id="2-Gitのインストールと初期設定"><a href="#2-Gitのインストールと初期設定" class="headerlink" title="2. Gitのインストールと初期設定"></a><strong>2. Gitのインストールと初期設定</strong></h3><ul>
 <li>Gitインストール(brew)</li>
@@ -49,6 +50,7 @@
 </ul>
 <p>ググればたくさん情報が出てくるので省略。</p>
 <br>
+<br>
 
 <h3 id="3-Hexoをインストールして起動"><a href="#3-Hexoをインストールして起動" class="headerlink" title="3. Hexoをインストールして起動"></a><strong>3. Hexoをインストールして起動</strong></h3><p>インストール＆確認。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install hexo-cli -g</span><br><span class="line">$ hexo -v</span><br></pre></td></tr></table></figure>
@@ -56,11 +58,12 @@
 <p>ローカルにHexoの雛形を作成して、必要なパッケージをインストール。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init myblog</span><br><span class="line">$ cd myblog</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
 
-<p>hexo initコマンドの後ろにファイル名をつければ、ファイルを作成してその中に雛形をデプロイしてくれる。<br><code>INFO  Start blogging with Hexo!</code>と表示されればOK。<br></p>
+<p>hexo initコマンドの後ろにファイル名をつければ、ファイルを作成してその中に雛形をデプロイしてくれる。<code>INFO  Start blogging with Hexo!</code>と表示されればOK。</p>
 <p>準備完了。ローカルで一旦立ち上げてみる。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
 <p><code>[info] Hexo is running at https://localhost:4000/. Press Ctrl+C to stop.</code>と表示されるので、<code>localhost:4000</code>にアクセスしてみる。止める時はCtrl+C。</p>
+<br>
 <br>
 
 <h3 id="4-Hexoのテーマ（Icarus）を導入"><a href="#4-Hexoのテーマ（Icarus）を導入" class="headerlink" title="4. Hexoのテーマ（Icarus）を導入"></a><strong>4. Hexoのテーマ（Icarus）を導入</strong></h3><p>自分は3カラムのデザインにしたいと思い、Hexoのテーマを物色。</p>
@@ -91,6 +94,7 @@
 <p>ローカルでの動作確認だけなら<code>hexo server</code>の前に実行する必要はないが、Icarusのデザイン調整を行う<code>_config.icarus.yml</code>ファイルは、<code>hexo generate</code>実行後に生成される。</p>
 <p>このことを知らず、当初<code>hexo generate</code>を実行せずに<code>hexo server</code>だけ実行してローカルで動かしつつデザイン調整をしようとしたため、肝心のymlファイルが見当たらなくて焦った。</p>
 <br>
+<br>
 
 <h3 id="5-GitHubにプッシュしてPagesで公開"><a href="#5-GitHubにプッシュしてPagesで公開" class="headerlink" title="5. GitHubにプッシュしてPagesで公開"></a><strong>5. GitHubにプッシュしてPagesで公開</strong></h3><p>エディタで<code>_config.yml</code>を以下のように編集。デプロイの項目は<code>repo:</code>と<code>branch:</code>を追記。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># URL</span><br><span class="line">## Set your site url here. For example, if you use GitHub Page, set url as &#x27;https://username.github.io/project&#x27;</span><br><span class="line">url: https://XXXXXX【ユーザ名】.github.io/XXXXXX【リポジトリ名】/</span><br><span class="line"></span><br><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:XXXXXX.git【GitHubのリポジトリのURL】</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
@@ -109,6 +113,7 @@
 <p><code>.nojekyll</code>という空ファイルをディレクトリ内に置いておくとJekyllの自動ビルドが行われないとのことで、これを試してみたところ無事ビルドされて公開できた。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ touch .nojekyll</span><br></pre></td></tr></table></figure>
 
+<br>
 <br>
 
 <h3 id="6-感想"><a href="#6-感想" class="headerlink" title="6. 感想"></a><strong>6. 感想</strong></h3><p>主に参考にさせていただいたサイトは以下のとおり。</p>
