@@ -41,7 +41,7 @@
 
 <br>
 
-<h3 id="2-Gitのインストールと初期設定"><a href="#2-Gitのインストールと初期設定" class="headerlink" title="2. Gitのインストールと初期設定"></a>2. <strong>Gitのインストールと初期設定</strong></h3><ul>
+<h3 id="2-Gitのインストールと初期設定"><a href="#2-Gitのインストールと初期設定" class="headerlink" title="2. Gitのインストールと初期設定"></a><strong>2. Gitのインストールと初期設定</strong></h3><ul>
 <li>Gitインストール(brew)</li>
 <li>Gitユーザ設定＆メール設定</li>
 <li>GitHubアカウント作成</li>
@@ -50,7 +50,7 @@
 <p>ググればたくさん情報が出てくるので省略。</p>
 <br>
 
-<h3 id="3-Hexoをインストールして起動"><a href="#3-Hexoをインストールして起動" class="headerlink" title="3. Hexoをインストールして起動"></a>3. Hexoをインストールして起動</h3><p>インストール＆確認。</p>
+<h3 id="3-Hexoをインストールして起動"><a href="#3-Hexoをインストールして起動" class="headerlink" title="3. Hexoをインストールして起動"></a><strong>3. Hexoをインストールして起動</strong></h3><p>インストール＆確認。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install hexo-cli -g</span><br><span class="line">$ hexo -v</span><br></pre></td></tr></table></figure>
 
 <p>ローカルにHexoの雛形を作成して、必要なパッケージをインストール。</p>
@@ -63,13 +63,13 @@
 <p><code>[info] Hexo is running at https://localhost:4000/. Press Ctrl+C to stop.</code>と表示されるので、<code>localhost:4000</code>にアクセスしてみる。止める時はCtrl+C。</p>
 <br>
 
-<h3 id="4-Hexoのテーマ（Icarus）を導入"><a href="#4-Hexoのテーマ（Icarus）を導入" class="headerlink" title="4. Hexoのテーマ（Icarus）を導入"></a>4. Hexoのテーマ（Icarus）を導入</h3><p>自分は3カラムのデザインにしたいと思い、Hexoのテーマを物色。</p>
+<h3 id="4-Hexoのテーマ（Icarus）を導入"><a href="#4-Hexoのテーマ（Icarus）を導入" class="headerlink" title="4. Hexoのテーマ（Icarus）を導入"></a><strong>4. Hexoのテーマ（Icarus）を導入</strong></h3><p>自分は3カラムのデザインにしたいと思い、Hexoのテーマを物色。</p>
 <p>色々なデザインテーマが公開されているが、自分がしたいと3カラムのものは意外と少なく、シンプルな感じのIcarusに決定。</p>
 <p>Icarus<br><a target="_blank" rel="noopener" href="https://ppoffice.github.io/hexo-theme-icarus/uncategorized/getting-started-with-icarus/">https://ppoffice.github.io/hexo-theme-icarus/uncategorized/getting-started-with-icarus/</a></p>
 <p>が、このテーマ導入でまずハマる。</p>
 <br>
 
-<h4 id="ハマりポイント①：インストール方法が２種類ある"><a href="#ハマりポイント①：インストール方法が２種類ある" class="headerlink" title="ハマりポイント①：インストール方法が２種類ある"></a>ハマりポイント①：インストール方法が２種類ある</h4><p>Icarusのインストール方法はgit cloneとnpm経由の２種類があり、それぞれインストールされるフォルダが違う。</p>
+<h4 id="ハマりポイント①：インストール方法が２種類ある"><a href="#ハマりポイント①：インストール方法が２種類ある" class="headerlink" title="ハマりポイント①：インストール方法が２種類ある"></a><strong>ハマりポイント①：インストール方法が２種類ある</strong></h4><p>Icarusのインストール方法はgit cloneとnpm経由の２種類があり、それぞれインストールされるフォルダが違う。</p>
 <p>前者はmyblog&#x2F;themesの下にicarusというフォルダ名でインストールされるが、後者はmyblog&#x2F;node_modulesの下にhexo-theme-icarus（とhexo-renderer-inferno）がインストールされる。</p>
 <p>最初にnpmでインストールした後、インストール先がわからずcloneもしてしまった。</p>
 <p>その後にthemesの下のフォルダの方で設定を変更したが、デプロイ後に反映されず、node_modules側を読み込んでいるのだと気づくのに時間がかかった。</p>
@@ -87,12 +87,12 @@
 <p><code>localhost:4000</code>を見てみて、テーマが反映されていればOK。</p>
 <br>
 
-<h4 id="ハマりポイント②：-config-icarus-ymlファイルが見当たらない"><a href="#ハマりポイント②：-config-icarus-ymlファイルが見当たらない" class="headerlink" title="ハマりポイント②：_config.icarus.ymlファイルが見当たらない"></a>ハマりポイント②：_config.icarus.ymlファイルが見当たらない</h4><p><code>hexo generate</code>は、静的NTMLをpublicフォルダに生成してくれるコマンド。</p>
+<h4 id="ハマりポイント②：-config-icarus-ymlファイルが見当たらない"><a href="#ハマりポイント②：-config-icarus-ymlファイルが見当たらない" class="headerlink" title="ハマりポイント②：_config.icarus.ymlファイルが見当たらない"></a><strong>ハマりポイント②：_config.icarus.ymlファイルが見当たらない</strong></h4><p><code>hexo generate</code>は、静的NTMLをpublicフォルダに生成してくれるコマンド。</p>
 <p>ローカルでの動作確認だけなら<code>hexo server</code>の前に実行する必要はないが、Icarusのデザイン調整を行う<code>_config.icarus.yml</code>ファイルは、<code>hexo generate</code>実行後に生成される。</p>
 <p>このことを知らず、当初<code>hexo generate</code>を実行せずに<code>hexo server</code>だけ実行してローカルで動かしつつデザイン調整をしようとしたため、肝心のymlファイルが見当たらなくて焦った。</p>
 <br>
 
-<h3 id="5-GitHubにプッシュしてPagesで公開"><a href="#5-GitHubにプッシュしてPagesで公開" class="headerlink" title="5. GitHubにプッシュしてPagesで公開"></a>5. GitHubにプッシュしてPagesで公開</h3><p>エディタで<code>_config.yml</code>を以下のように編集。デプロイの項目は<code>repo:</code>と<code>branch:</code>を追記。</p>
+<h3 id="5-GitHubにプッシュしてPagesで公開"><a href="#5-GitHubにプッシュしてPagesで公開" class="headerlink" title="5. GitHubにプッシュしてPagesで公開"></a><strong>5. GitHubにプッシュしてPagesで公開</strong></h3><p>エディタで<code>_config.yml</code>を以下のように編集。デプロイの項目は<code>repo:</code>と<code>branch:</code>を追記。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># URL</span><br><span class="line">## Set your site url here. For example, if you use GitHub Page, set url as &#x27;https://username.github.io/project&#x27;</span><br><span class="line">url: https://XXXXXX【ユーザ名】.github.io/XXXXXX【リポジトリ名】/</span><br><span class="line"></span><br><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:XXXXXX.git【GitHubのリポジトリのURL】</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
 
 <p>これをhexoのコマンドでデプロイするが、Gitへのデプロイヤーが必要なため先に入れておく。</p>
@@ -102,7 +102,7 @@
 <p>しばらくすると、「Pages」に<code>Your site is live at https://XXXXX</code>という表示が出るので、アクセスしてみて見れればOK。</p>
 <br>
 
-<h4 id="ハマりポイント③：icarusがsubmoduleとして認識されることがある"><a href="#ハマりポイント③：icarusがsubmoduleとして認識されることがある" class="headerlink" title="ハマりポイント③：icarusがsubmoduleとして認識されることがある"></a>ハマりポイント③：icarusがsubmoduleとして認識されることがある</h4><p>最初ビルドした際に、エラーが発生して正常に公開できなかった。</p>
+<h4 id="ハマりポイント③：icarusがsubmoduleとして認識されることがある"><a href="#ハマりポイント③：icarusがsubmoduleとして認識されることがある" class="headerlink" title="ハマりポイント③：icarusがsubmoduleとして認識されることがある"></a><strong>ハマりポイント③：icarusがsubmoduleとして認識されることがある</strong></h4><p>最初ビルドした際に、エラーが発生して正常に公開できなかった。</p>
 <p>エラーメッセージを見たところ、どうやらicarusをsubmoduleとして認識しているが.gitmoduleファイルに記述が見当たらない、というものらしい（そもそもsubmoduleという概念自体を知らなかったため、ここでもまた理解するのに時間がかかった）。。。</p>
 <p>原因を特定したはいいものの、現存のicarusフォルダをsubmoduleする方法もその後のsubmoduleの管理方法を調べてみても、超初心者にはよくわからない。。。</p>
 <p>よくよく調べてみると、そもそもPagesはデフォルトでJekyllという自動ビルドツールを使っており、このJekyllがicarusをsubmoduleと認識してしまっているっぽい。</p>
@@ -111,7 +111,7 @@
 
 <br>
 
-<h3 id="6-感想"><a href="#6-感想" class="headerlink" title="6. 感想"></a>6. 感想</h3><p>主に参考にさせていただいたサイトは以下のとおり。</p>
+<h3 id="6-感想"><a href="#6-感想" class="headerlink" title="6. 感想"></a><strong>6. 感想</strong></h3><p>主に参考にさせていただいたサイトは以下のとおり。</p>
 <p><a target="_blank" rel="noopener" href="https://liginc.co.jp/web/programming/server/104594">https://liginc.co.jp/web/programming/server/104594</a><br><a target="_blank" rel="noopener" href="https://qiita.com/ORCHESTRA_TAPE/items/092d1479ff6dcc7e51c2">https://qiita.com/ORCHESTRA_TAPE/items/092d1479ff6dcc7e51c2</a><br><a target="_blank" rel="noopener" href="https://tech.qookie.jp/posts/hexo-deploy-github-pages-backup-version/">https://tech.qookie.jp/posts/hexo-deploy-github-pages-backup-version/</a></p>
 <p>Gitに限らず全般的なリテラシー不足なため、諸々初歩的な点で躓いてしまうが、備忘のため恥を忍んで記録に残す。</p>
 <p>＃デザインファイル（hexo-theme-icarus&#x2F;style&#x2F;*.styl）の変更が<code>hexo deploy -g</code>でもうまく反映できないのが追加課題。。。</p>
