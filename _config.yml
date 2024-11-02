@@ -13,7 +13,7 @@ timezone: 'Japan'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://taka-aizawa.github.io/myblog/
+url: https://tkaizawa.github.io/myblog/
 permalink: :title/
 permalink_defaults:
 pretty_urls:
@@ -102,5 +102,5 @@ theme: icarus
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: git@github.com:taka-aizawa/myblog.git
+  repo: git@github.com:tkaizawa/myblog.git
   branch: gh-pages
