@@ -241,12 +241,12 @@ widgets:
         # Email address for the Gravatar
         gravatar: 
         # URL or path for the follow button
-        follow_link: https://github.com/taka-aizawa
+        follow_link: https://github.com/tkaizawa
         # Links to be shown on the bottom of the profile widget
         social_links:
             Github:
                 icon: fab fa-github
-                url: https://github.com/taka-aizawa
+                url: https://github.com/tkaizawa
             #Facebook:
             #    icon: fab fa-facebook
             #    url: https://facebook.com
