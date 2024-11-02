@@ -4,13 +4,27 @@
   
     
     <entry>
-      <title>test</title>
+      <title>GitHubでバックアップ</title>
       <link href="/myblog/2-github-backup/"/>
       <url>/myblog/2-github-backup/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>ブログ立ち上げは無事できたが、現状ではGitHubでホストできているのは公開用データのみで、記事データ（.mdファイル）などはバックアップできていない。</p><p>＃Hexoはフォルダ内のデータから<code>hexo generate</code>コマンドでPublicフォルダを生成し、指定した公開場所（_config.ymlの#Deployment）にデプロイする。</p><p>職場で日頃から「端末は一番大事な時に壊れたりするのでローカルだけで持ってはいけない、必ずクラウドで管理すること」と言われているので、ブログデータ全体をGitHubでバックアップしながらGitHub Pagesにデプロイする方法を検討。</p><br><hr><h2 id="手順"><a href="#手順" class="headerlink" title="手順"></a><strong>手順</strong></h2><hr><p>main(master)ブランチでバックアップを取りつつ、gh-pagesブランチにデプロイする。</p><ul><li>Hexoを入れているローカルフォルダをGit管理にする</li><li>コミットする</li><li>ローカルフォルダとGitHubのリモートリポジトリを紐づける</li><li>プッシュする</li><li><code>_config.yml</code>を書き換えてデプロイする</li></ul><br><p>まずはローカルフォルダをGit管理にする。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd myblog</span><br><span class="line">$ git init</span><br></pre></td></tr></table></figure><br><p>コミットする。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br><span class="line">$ git commit -m &quot;XXXXX&quot;</span><br></pre></td></tr></table></figure><br><p>GitHubからリモートリポジトリのURLをコピーしてきたら、ローカルと紐づける。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add origin https://github.com/XXXXX</span><br></pre></td></tr></table></figure><br><p>プッシュする。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin main</span><br></pre></td></tr></table></figure><p>ローカルのメインリポジトリ名をmain、リモートがmasterになっていたせいでブランチが二つできてしまった。。。</p><p>GitHubでデフォルトのブランチをmasterからmainに変更して、masterブランチを削除。</p><p>その後、<code>_config.yml</code>の<code>branch:</code>をmasterからgh-pagesに編集。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:XXXXXX.git【GitHubのリポジトリのURL】</span><br><span class="line">  branch: gh-pages #ここをmasterから変更</span><br></pre></td></tr></table></figure><br><p>これまでの作業を保存（add, commit , push）して<code>hexo deploy</code>すると、リモートにgh-pagesブランチが作成される。</p><p>あとはGitHubのPagesの設定（Build and deployment）の「Branch」をgh-pagesブランチに変更すればOK.</p><br>---<p>今後は編集するたびに以下のコマンドを繰り返せばよさそう。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br><span class="line">$ git add</span><br><span class="line">$ git commit -m &quot;XXXXX&quot;</span><br><span class="line">$ git push origin main</span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><br><p>参考にさせていただいたサイト<br><a href="https://qiita.com/nyu___nS/items/3fca57ce133be69835ba#comments">https://qiita.com/nyu___nS/items/3fca57ce133be69835ba#comments</a></p><br><br>]]></content>
       
       
+      <categories>
+          
+          <category> blog </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> Icarus </tag>
+            
+        </tags>
       
     </entry>
     
