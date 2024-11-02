@@ -1,7 +1,7 @@
 ---
 title: ブログ開始
 date: 2024-11-02 17:10:10
-pdated: 2024-10-31
+updated: 2024-10-31
 tags:
  - Hexo
  - Icarus
