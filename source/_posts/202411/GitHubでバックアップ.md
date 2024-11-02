@@ -77,4 +77,21 @@ deploy:
 あとはGitHubのPagesの設定（Build and deployment）の「Branch」をgh-pagesブランチに変更すればOK.
 
 <br>
+---
+
+今後は編集するたびに以下のコマンドを繰り返せばよさそう。
+
+~~~
+$ hexo generate
+$ git add
+$ git commit -m "XXXXX"
+$ git push origin main
+$ hexo deploy
+~~~
+<br>
+
+参考にさせていただいたサイト
+https://qiita.com/nyu___nS/items/3fca57ce133be69835ba#comments
+
+<br>
 <br>
