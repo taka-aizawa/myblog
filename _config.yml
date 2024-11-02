@@ -104,4 +104,4 @@ theme: icarus
 deploy:
   type: git
   repo: git@github.com:taka-aizawa/myblog.git
-  branch: master
+  branch: gh-pages
