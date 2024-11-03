@@ -423,7 +423,7 @@ providers:
     iconcdn: fontawesome
 #
 toc:
-  maxdepth: 3
+  maxdepth: 4
   class: toc
   slugify: uslug
   anchor:
