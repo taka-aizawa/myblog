@@ -29,14 +29,41 @@
       switchTab();
       window.addEventListener('hashchange', switchTab, false);
   })();
-  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/myblog/"><img src="/myblog/img/logo.jpg" alt="Takalog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/myblog/">Home</a><a class="navbar-item" href="/myblog/archives">Archives</a><a class="navbar-item" href="/myblog/categories">Categories</a><a class="navbar-item" href="/myblog/tags">Tags</a><a class="navbar-item" href="/myblog/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/myblog/tags">タグ</a></li><li class="is-active"><a href="#" aria-current="page">Hexo</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-02T09:03:13.000Z" title="2024/11/2 18:03:13">2024-11-02</time>に投稿</span><span class="level-item"><time dateTime="2024-11-02T14:01:55.339Z" title="2024/11/2 23:01:55">2024-11-02</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/blog/">blog</a></span><span class="level-item">5分で読む (約691語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/2024/11/github-backup/">GitHubでバックアップ</a></p><div class="content"><p>ブログ立ち上げは無事できたが、現状ではGitHubでホストできているのは公開用データのみで、記事データ（.mdファイル）などはバックアップできていない。</p>
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/myblog/"><img src="/myblog/img/logo.jpg" alt="Takalog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/myblog/">Home</a><a class="navbar-item" href="/myblog/archives">Archives</a><a class="navbar-item" href="/myblog/categories">Categories</a><a class="navbar-item" href="/myblog/tags">Tags</a><a class="navbar-item" href="/myblog/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/myblog/tags">タグ</a></li><li class="is-active"><a href="#" aria-current="page">Hexo</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-03T01:26:31.000Z" title="2024/11/3 10:26:31">2024-11-03</time>に投稿</span><span class="level-item"><time dateTime="2024-11-03T02:17:48.955Z" title="2024/11/3 11:17:48">2024-11-03</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/blog/">blog</a></span><span class="level-item">1分で読む (約186語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/2024/11/hexo-plugin-toc/">Hexoに目次のプラグインを導入</a></p><div class="content"><p>記事レイアウトの微調整。tocというプラグインで目次の自動生成ができるとのこと。</p>
+<br>
+
+<hr>
+<h1><span id="手順"><strong>手順</strong></span></h1><hr>
+<!-- toc -->
+
+<ul>
+<li><a href="#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3hexo-toc%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">プラグイン（hexo-toc）のインストール</a></li>
+<li><a href="#config%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E7%B7%A8%E9%9B%86">configファイルを編集</a></li>
+<li><a href="#%E8%A8%98%E4%BA%8B%E5%86%85%E3%81%AB%E3%82%BF%E3%82%B0%E3%82%92%E8%A8%AD%E7%BD%AE">記事内にタグを設置</a></li>
+</ul>
+<!-- tocstop -->
+
+<h3><span id="プラグインhexo-tocのインストール">プラグイン（hexo-toc）のインストール</span></h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-toc --save</span><br></pre></td></tr></table></figure>
+<br>
+
+<h3><span id="configファイルを編集">configファイルを編集</span></h3><p>_config.icarus.ymlに以下を追記。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">toc:</span></span><br><span class="line">  <span class="attr">maxdepth:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">class:</span> <span class="string">toc</span></span><br><span class="line">  <span class="attr">slugify:</span> <span class="string">uslug</span></span><br><span class="line">  <span class="attr">anchor:</span></span><br><span class="line">    <span class="attr">position:</span> <span class="string">after</span></span><br><span class="line">    <span class="attr">symbol:</span> <span class="string">&quot;#&quot;</span></span><br><span class="line">    <span class="attr">style:</span> <span class="string">header-anchor</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<h3><span id="記事内にタグを設置">記事内にタグを設置</span></h3><p>記事内の目次を表示したい場所に以下のタグを設置。見出しから自動的に目次を出力してくれる。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- toc --&gt;</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>参考にさせていただいた記事は以下。<br><a target="_blank" rel="noopener" href="https://fennote.fareastnoise.com/2022/03/04/toc/">HEXO の投稿に目次機能を追加する</a></p>
+<br>
+<br></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-02T09:03:13.000Z" title="2024/11/2 18:03:13">2024-11-02</time>に投稿</span><span class="level-item"><time dateTime="2024-11-03T02:01:59.802Z" title="2024/11/3 11:01:59">2024-11-03</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/blog/">blog</a></span><span class="level-item">5分で読む (約691語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/2024/11/github-backup/">GitHubでバックアップ</a></p><div class="content"><p>ブログ立ち上げは無事できたが、現状ではGitHubでホストできているのは公開用データのみで、記事データ（.mdファイル）などはバックアップできていない。</p>
 <p>＃Hexoはフォルダ内のデータから<code>hexo generate</code>コマンドでPublicフォルダを生成し、指定した公開場所（_config.ymlの#Deployment）にデプロイする。</p>
 <p>職場で日頃から「端末は一番大事な時に壊れたりするのでローカルだけで持ってはいけない、必ずクラウドで管理すること」と言われているので、ブログデータ全体をGitHubでバックアップしながらGitHub Pagesにデプロイする方法を検討。</p>
 <br>
 
 <hr>
-<h2><span id="手順"><strong>手順</strong></span></h2><hr>
-<p>main(master)ブランチでバックアップを取りつつ、gh-pagesブランチにデプロイする。</p>
+<h1><span id="手順"><strong>手順</strong></span></h1><hr>
+<p>main(master)ブランチでバックアップを取りつつ、gh-pagesブランチにデプロイする。<br><br></p>
 <ul>
 <li>Hexoを入れているローカルフォルダをGit管理にする</li>
 <li>コミットする</li>
@@ -85,36 +112,39 @@
 <br>
 
 <hr>
-<h2><span id="手順"><strong>手順</strong></span></h2><hr>
+<h1><span id="手順"><strong>手順</strong></span></h1><hr>
 <p>やることは大体こんな感じ。</p>
 <!-- toc -->
 
 <ul>
-<li><a href="#1-nodejs%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><strong>1. Node.jsのインストール</strong></a></li>
-<li><a href="#2-git%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E5%88%9D%E6%9C%9F%E8%A8%AD%E5%AE%9A"><strong>2. Gitのインストールと初期設定</strong></a></li>
-<li><a href="#3-hexo%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%A6%E8%B5%B7%E5%8B%95"><strong>3. Hexoをインストールして起動</strong></a></li>
-<li><a href="#4-hexo%E3%81%AE%E3%83%86%E3%83%BC%E3%83%9Eicarus%E3%82%92%E5%B0%8E%E5%85%A5"><strong>4. Hexoのテーマ（Icarus）を導入</strong></a><ul>
-<li><a href="#%E3%83%8F%E3%83%9E%E3%82%8A%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%881%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%96%B9%E6%B3%95%E3%81%8C2%E7%A8%AE%E9%A1%9E%E3%81%82%E3%82%8B"><strong>ハマりポイント①：インストール方法が２種類ある</strong></a></li>
-<li><a href="#%E3%83%8F%E3%83%9E%E3%82%8A%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%882_configicarusyml%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E8%A6%8B%E5%BD%93%E3%81%9F%E3%82%89%E3%81%AA%E3%81%84"><strong>ハマりポイント②：_config.icarus.ymlファイルが見当たらない</strong></a></li>
+<li><a href="#1-nodejs%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">1. Node.jsのインストール</a></li>
+<li><a href="#2-git%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E5%88%9D%E6%9C%9F%E8%A8%AD%E5%AE%9A">2. Gitのインストールと初期設定</a></li>
+<li><a href="#3-hexo%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%A6%E8%B5%B7%E5%8B%95">3. Hexoをインストールして起動</a></li>
+<li><a href="#4-hexo%E3%81%AE%E3%83%86%E3%83%BC%E3%83%9Eicarus%E3%82%92%E5%B0%8E%E5%85%A5">4. Hexoのテーマ（Icarus）を導入</a><ul>
+<li><a href="#%E3%83%8F%E3%83%9E%E3%82%8A%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%881%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%96%B9%E6%B3%95%E3%81%8C2%E7%A8%AE%E9%A1%9E%E3%81%82%E3%82%8B">ハマりポイント①：インストール方法が２種類ある</a></li>
+<li><a href="#%E3%83%8F%E3%83%9E%E3%82%8A%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%882_configicarusyml%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E8%A6%8B%E5%BD%93%E3%81%9F%E3%82%89%E3%81%AA%E3%81%84">ハマりポイント②：_config.icarus.ymlファイルが見当たらない</a></li>
 </ul>
 </li>
-<li><a href="#5-github%E3%81%AB%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5%E3%81%97%E3%81%A6pages%E3%81%A7%E5%85%AC%E9%96%8B"><strong>5. GitHubにプッシュしてPagesで公開</strong></a><ul>
-<li><a href="#%E3%83%8F%E3%83%9E%E3%82%8A%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%883icarus%E3%81%8Csubmodule%E3%81%A8%E3%81%97%E3%81%A6%E8%AA%8D%E8%AD%98%E3%81%95%E3%82%8C%E3%82%8B%E3%81%93%E3%81%A8%E3%81%8C%E3%81%82%E3%82%8B"><strong>ハマりポイント③：icarusがsubmoduleとして認識されることがある</strong></a></li>
+<li><a href="#5-github%E3%81%AB%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5%E3%81%97%E3%81%A6pages%E3%81%A7%E5%85%AC%E9%96%8B">5. GitHubにプッシュしてPagesで公開</a><ul>
+<li><a href="#%E3%83%8F%E3%83%9E%E3%82%8A%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%883icarus%E3%81%8Csubmodule%E3%81%A8%E3%81%97%E3%81%A6%E8%AA%8D%E8%AD%98%E3%81%95%E3%82%8C%E3%82%8B%E3%81%93%E3%81%A8%E3%81%8C%E3%81%82%E3%82%8B">ハマりポイント③：icarusがsubmoduleとして認識されることがある</a></li>
 </ul>
 </li>
-<li><a href="#6-%E6%84%9F%E6%83%B3"><strong>6. 感想</strong></a></li>
+<li><a href="#6-%E6%84%9F%E6%83%B3">6. 感想</a></li>
 </ul>
 <!-- tocstop -->
 
 <br>
 
-<h3><span id="1-nodejsのインストール"><strong>1. Node.jsのインストール</strong></span></h3><p>homebrewでNode.jsをインストール＆確認。</p>
+
+<h2><span id="1-nodejsのインストール">1. Node.jsのインストール</span></h2><hr>
+<p>homebrewでNode.jsをインストール＆確認。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ brew install node</span><br><span class="line">$ node -v</span><br></pre></td></tr></table></figure>
 
 <br>
 <br>
 
-<h3><span id="2-gitのインストールと初期設定"><strong>2. Gitのインストールと初期設定</strong></span></h3><ul>
+<h2><span id="2-gitのインストールと初期設定">2. Gitのインストールと初期設定</span></h2><hr>
+<ul>
 <li>Gitインストール(brew)</li>
 <li>Gitユーザ設定＆メール設定</li>
 <li>GitHubアカウント作成</li>
@@ -124,7 +154,8 @@
 <br>
 <br>
 
-<h3><span id="3-hexoをインストールして起動"><strong>3. Hexoをインストールして起動</strong></span></h3><p>インストール＆確認。</p>
+<h2><span id="3-hexoをインストールして起動">3. Hexoをインストールして起動</span></h2><hr>
+<p>インストール＆確認。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install hexo-cli -g</span><br><span class="line">$ hexo -v</span><br></pre></td></tr></table></figure>
 <br>
 
@@ -141,13 +172,14 @@
 <br>
 <br>
 
-<h3><span id="4-hexoのテーマicarusを導入"><strong>4. Hexoのテーマ（Icarus）を導入</strong></span></h3><p>自分は3カラムのデザインにしたいと思い、Hexoのテーマを物色。</p>
+<h2><span id="4-hexoのテーマicarusを導入">4. Hexoのテーマ（Icarus）を導入</span></h2><hr>
+<p>自分は3カラムのデザインにしたいと思い、Hexoのテーマを物色。</p>
 <p>色々なデザインテーマが公開されているが、自分がしたいと3カラムのものは意外と少なく、シンプルな感じのIcarusに決定。</p>
 <p>Icarus<br><a target="_blank" rel="noopener" href="https://ppoffice.github.io/hexo-theme-icarus/uncategorized/getting-started-with-icarus/">https://ppoffice.github.io/hexo-theme-icarus/uncategorized/getting-started-with-icarus/</a></p>
 <p>が、このテーマ導入でまずハマる。</p>
 <br>
 
-<h4><span id="ハマりポイント1インストール方法が2種類ある"><strong>ハマりポイント①：インストール方法が２種類ある</strong></span></h4><p>Icarusのインストール方法はgit cloneとnpm経由の２種類があり、それぞれインストールされるフォルダが違う。</p>
+<h3><span id="ハマりポイント1インストール方法が2種類ある">ハマりポイント①：インストール方法が２種類ある</span></h3><p>Icarusのインストール方法はgit cloneとnpm経由の２種類があり、それぞれインストールされるフォルダが違う。</p>
 <p>前者はmyblog&#x2F;themesの下にicarusというフォルダ名でインストールされるが、後者はmyblog&#x2F;node_modulesの下にhexo-theme-icarus（とhexo-renderer-inferno）がインストールされる。</p>
 <p>最初にnpmでインストールした後、インストール先がわからずcloneもしてしまった。</p>
 <p>その後にthemesの下のフォルダの方で設定を変更したが、デプロイ後に反映されず、node_modules側を読み込んでいるのだと気づくのに時間がかかった。</p>
@@ -169,13 +201,14 @@
 <p>localhost:4000を見てみて、テーマが反映されていればOK。</p>
 <br>
 
-<h4><span id="ハマりポイント2_configicarusymlファイルが見当たらない"><strong>ハマりポイント②：_config.icarus.ymlファイルが見当たらない</strong></span></h4><p><code>hexo generate</code>は、静的NTMLをpublicフォルダに生成してくれるコマンド。</p>
+<h3><span id="ハマりポイント2_configicarusymlファイルが見当たらない">ハマりポイント②：_config.icarus.ymlファイルが見当たらない</span></h3><p><code>hexo generate</code>は、静的NTMLをpublicフォルダに生成してくれるコマンド。</p>
 <p>ローカルでの動作確認だけなら<code>hexo server</code>の前に実行する必要はないが、Icarusのデザイン調整を行う<code>_config.icarus.yml</code>ファイルは、<code>hexo generate</code>実行後に生成される。</p>
 <p>このことを知らず、当初<code>hexo generate</code>を実行せずに<code>hexo server</code>だけ実行してローカルで動かしつつデザイン調整をしようとしたため、肝心のymlファイルが見当たらなくて焦った。</p>
 <br>
 <br>
 
-<h3><span id="5-githubにプッシュしてpagesで公開"><strong>5. GitHubにプッシュしてPagesで公開</strong></span></h3><p>エディタで<code>_config.yml</code>を以下のように編集。デプロイの項目は<code>repo:</code>と<code>branch:</code>を追記。</p>
+<h2><span id="5-githubにプッシュしてpagesで公開">5. GitHubにプッシュしてPagesで公開</span></h2><hr>
+<p>エディタで<code>_config.yml</code>を以下のように編集。デプロイの項目は<code>repo:</code>と<code>branch:</code>を追記。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># URL</span><br><span class="line">url: https://XXXXXX【ユーザ名】.github.io/XXXXXX【リポジトリ名】/</span><br><span class="line"></span><br><span class="line"># Deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:XXXXXX.git【GitHubのリポジトリのURL】</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
 <br>
 
@@ -188,7 +221,7 @@
 <p>しばらくすると、「Pages」に<code>Your site is live at https://XXXXX</code>という表示が出るので、アクセスしてみて見れればOK。</p>
 <br>
 
-<h4><span id="ハマりポイント3icarusがsubmoduleとして認識されることがある"><strong>ハマりポイント③：icarusがsubmoduleとして認識されることがある</strong></span></h4><p>最初ビルドした際に、エラーが発生して正常に公開できなかった。</p>
+<h3><span id="ハマりポイント3icarusがsubmoduleとして認識されることがある">ハマりポイント③：icarusがsubmoduleとして認識されることがある</span></h3><p>最初ビルドした際に、エラーが発生して正常に公開できなかった。</p>
 <p>エラーメッセージを見たところ、どうやらicarusをsubmoduleとして認識しているが.gitmoduleファイルに記述が見当たらない、というものらしい（そもそもsubmoduleという概念自体を知らなかったため、ここでもまた理解するのに時間がかかった）。。。</p>
 <p>原因を特定したはいいものの、現存のicarusフォルダをsubmoduleする方法もその後のsubmoduleの管理方法を調べてみても、超初心者にはよくわからない。。。</p>
 <p>よくよく調べてみると、そもそもPagesはデフォルトでJekyllという自動ビルドツールを使っており、このJekyllがicarusをsubmoduleと認識してしまっているっぽい。</p>
@@ -198,13 +231,14 @@
 <br>
 <br>
 
-<h3><span id="6-感想"><strong>6. 感想</strong></span></h3><p>主に参考にさせていただいたサイトは以下のとおり。</p>
+<h2><span id="6-感想">6. 感想</span></h2><hr>
+<p>主に参考にさせていただいたサイトは以下のとおり。</p>
 <p><a target="_blank" rel="noopener" href="https://liginc.co.jp/web/programming/server/104594">https://liginc.co.jp/web/programming/server/104594</a><br><a target="_blank" rel="noopener" href="https://qiita.com/ORCHESTRA_TAPE/items/092d1479ff6dcc7e51c2">https://qiita.com/ORCHESTRA_TAPE/items/092d1479ff6dcc7e51c2</a><br><a target="_blank" rel="noopener" href="https://tech.qookie.jp/posts/hexo-deploy-github-pages-backup-version/">https://tech.qookie.jp/posts/hexo-deploy-github-pages-backup-version/</a></p>
 <p>Gitに限らず全般的なリテラシー不足なため、諸々初歩的な点で躓いてしまうが、備忘のため恥を忍んで記録に残す。</p>
 <p>＃デザインファイル（hexo-theme-icarus&#x2F;style&#x2F;*.styl）の変更が<code>hexo deploy -g</code>コマンドでもうまく反映できないのが追加課題。。。</p>
 <br>
 <br>
-</div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/myblog/img/a.jpg" alt="Taka"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Taka</p><p class="is-size-6 is-block">An engineering apprentice</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Tokyo, Japan</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">投稿</p><a href="/myblog/archives"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">カテゴリ</p><a href="/myblog/categories"><p class="title">2</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">タグ</p><a href="/myblog/tags"><p class="title">3</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/tkaizawa" target="_blank" rel="me noopener">フォローする</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/tkaizawa"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a></div></div></div><!--!--><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">タグ</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/myblog/tags/Git/"><span class="tag">Git</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/Hexo/"><span class="tag">Hexo</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/Icarus/"><span class="tag">Icarus</span><span class="tag">2</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最近の記事</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-03T01:26:31.000Z">2024-11-03</time></p><p class="title"><a href="/myblog/hexo-plugin-toc/">4-hexo-plugin-toc</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-02T13:59:52.000Z">2024-11-02</time></p><p class="title"><a href="/myblog/2024/11/github-username-modify/">GitHubのユーザ名を変更</a></p><p class="categories"><a href="/myblog/categories/tech/">tech</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-02T09:03:13.000Z">2024-11-02</time></p><p class="title"><a href="/myblog/2024/11/github-backup/">GitHubでバックアップ</a></p><p class="categories"><a href="/myblog/categories/blog/">blog</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-10-30T08:10:10.000Z">2024-10-30</time></p><p class="title"><a href="/myblog/2024/10/start-blog/">ブログ開始</a></p><p class="categories"><a href="/myblog/categories/blog/">blog</a></p></div></article></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">カテゴリ</h3><ul class="menu-list"><li><a class="level is-mobile" href="/myblog/categories/blog/"><span class="level-start"><span class="level-item">blog</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/myblog/categories/tech/"><span class="level-start"><span class="level-item">tech</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">アーカイブ</h3><ul class="menu-list"><li><a class="level is-mobile" href="/myblog/archives/2024/11/"><span class="level-start"><span class="level-item">2024-11</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/myblog/archives/2024/10/"><span class="level-start"><span class="level-item">2024-10</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/myblog/"><img src="/myblog/img/logo.jpg" alt="Takalog" height="28"></a><p class="is-size-7"><span>&copy; 2024 Taka</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("ja");</script><script>var IcarusThemeSettings = {
+</div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/myblog/img/a.jpg" alt="Taka"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Taka</p><p class="is-size-6 is-block">An engineering apprentice</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Tokyo, Japan</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">投稿</p><a href="/myblog/archives"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">カテゴリ</p><a href="/myblog/categories"><p class="title">2</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">タグ</p><a href="/myblog/tags"><p class="title">3</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/tkaizawa" target="_blank" rel="me noopener">フォローする</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/tkaizawa"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a></div></div></div><!--!--><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">タグ</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/myblog/tags/Git/"><span class="tag">Git</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/Hexo/"><span class="tag">Hexo</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/Icarus/"><span class="tag">Icarus</span><span class="tag">3</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最近の記事</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-03T01:26:31.000Z">2024-11-03</time></p><p class="title"><a href="/myblog/2024/11/hexo-plugin-toc/">Hexoに目次のプラグインを導入</a></p><p class="categories"><a href="/myblog/categories/blog/">blog</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-02T13:59:52.000Z">2024-11-02</time></p><p class="title"><a href="/myblog/2024/11/github-username-modify/">GitHubのユーザ名を変更</a></p><p class="categories"><a href="/myblog/categories/tech/">tech</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-02T09:03:13.000Z">2024-11-02</time></p><p class="title"><a href="/myblog/2024/11/github-backup/">GitHubでバックアップ</a></p><p class="categories"><a href="/myblog/categories/blog/">blog</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-10-30T08:10:10.000Z">2024-10-30</time></p><p class="title"><a href="/myblog/2024/10/start-blog/">ブログ開始</a></p><p class="categories"><a href="/myblog/categories/blog/">blog</a></p></div></article></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">カテゴリ</h3><ul class="menu-list"><li><a class="level is-mobile" href="/myblog/categories/blog/"><span class="level-start"><span class="level-item">blog</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/myblog/categories/tech/"><span class="level-start"><span class="level-item">tech</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">アーカイブ</h3><ul class="menu-list"><li><a class="level is-mobile" href="/myblog/archives/2024/11/"><span class="level-start"><span class="level-item">2024-11</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/myblog/archives/2024/10/"><span class="level-start"><span class="level-item">2024-10</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/myblog/"><img src="/myblog/img/logo.jpg" alt="Takalog" height="28"></a><p class="is-size-7"><span>&copy; 2024 Taka</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("ja");</script><script>var IcarusThemeSettings = {
             article: {
                 highlight: {
                     clipboard: true,
