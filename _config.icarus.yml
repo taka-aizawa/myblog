@@ -421,3 +421,12 @@ providers:
     fontcdn: google
     # Name or URL of the fontawesome icon font CDN provider
     iconcdn: fontawesome
+#
+toc:
+  maxdepth: 3
+  class: toc
+  slugify: uslug
+  anchor:
+    position: after
+    symbol: "#"
+    style: header-anchor

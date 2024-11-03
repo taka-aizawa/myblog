@@ -18,6 +18,9 @@ category: tech
 ## **手順**
 ---
 
+<!-- toc -->
+<br>
+
 #### **GitHubにログインして設定画面から変更**
 
 GitHubにログインして「Setting」→「Account」をクリックする。

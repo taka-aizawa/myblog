@@ -23,11 +23,7 @@ QiitaやZennなどのを既存ツールを検討したものの、自由度や�
 
 やることは大体こんな感じ。
 
-- Node.jsを入れる
-- Gitを入れる・GitHubを始めてリポジトリを作る
-- Hexoを入れる
-- Hexoのテーマ（Icarus）を入れる
-- ローカルのHexoデータをGitHubにプッシュしてPagesで公開する
+<!-- toc -->
 
 <br>
 
