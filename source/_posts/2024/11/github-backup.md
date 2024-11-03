@@ -19,7 +19,7 @@ category: blog
 <br>
 
 ---
-# **手順**
+# 手順
 ---
 
 main(master)ブランチでバックアップを取りつつ、gh-pagesブランチにデプロイする。

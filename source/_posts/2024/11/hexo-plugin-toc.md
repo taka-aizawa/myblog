@@ -4,7 +4,6 @@ date: 2024-11-03 10:26:31
 tags: 
  - Hexo
  - Icarus
- - Git
 category: blog
 ---
 
@@ -13,7 +12,7 @@ category: blog
 <br>
 
 ---
-# **手順**
+# 手順
 ---
 
 <!-- toc -->
@@ -26,7 +25,7 @@ $ npm install hexo-toc --save
 ~~~
 <br>
 
-### configファイルを編集
+### Icarusのconfigファイルを編集
 
 _config.icarus.ymlに以下を追記。
 
@@ -53,7 +52,3 @@ toc:
 
 参考にさせていただいた記事は以下。
 [HEXO の投稿に目次機能を追加する](https://fennote.fareastnoise.com/2022/03/04/toc/)
-
-
-<br>
-<br>
