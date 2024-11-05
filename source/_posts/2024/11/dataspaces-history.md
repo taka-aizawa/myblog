@@ -107,9 +107,11 @@ DSM戦略とそれに続く一連の欧州のデータ関連の取り組みを�
 
 <br>
 
-「データの所在に関する制限」とは、**データローカライゼーション規制**を指している。データローカライゼーション規制については、 [平成30年版 情報通信白書](https://www.soumu.go.jp/johotsusintokei/whitepaper/ja/h30/html/nd112220.html)が詳しい。
+「データの所在に関する制限」とは、**データローカライゼーション規制**を指している。
+データローカライゼーション規制については、 [平成30年版 情報通信白書](https://www.soumu.go.jp/johotsusintokei/whitepaper/ja/h30/html/nd112220.html)が詳しい。
 
-また、「サービス間のデータポータビリティ」とは、**データポータビリティ権**を指している。データポータビリティ権については、[令和元年版 情報通信白書](https://www.soumu.go.jp/johotsusintokei/whitepaper/ja/r01/html/nd113130.html)が詳しい。
+また、「サービス間のデータポータビリティ」とは、**データポータビリティ権**を指している。
+データポータビリティ権については、[令和元年版 情報通信白書](https://www.soumu.go.jp/johotsusintokei/whitepaper/ja/r01/html/nd113130.html)が詳しい。
 
 <br>
 
