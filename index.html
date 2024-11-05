@@ -29,12 +29,12 @@
       switchTab();
       window.addEventListener('hashchange', switchTab, false);
   })();
-  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/myblog/"><img src="/myblog/img/logo.jpg" alt="Takalog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item is-active" href="/myblog/">Home</a><a class="navbar-item" href="/myblog/archives">Archives</a><a class="navbar-item" href="/myblog/categories">Categories</a><a class="navbar-item" href="/myblog/tags">Tags</a><a class="navbar-item" href="/myblog/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-05T03:51:50.000Z" title="2024/11/5 12:51:50">2024-11-05</time>に投稿</span><span class="level-item"><time dateTime="2024-11-05T04:18:16.534Z" title="2024/11/5 13:18:16">2024-11-05</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/tech/">tech</a></span><span class="level-item">3分で読む (約378語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/2024/11/memo-netplan-and-ssh/">netplanとsshのメモ</a></p><div class="content"><p>職場のクラウド環境から外部のプライベート環境に行くための設定でミスったので、備忘のためのメモ。</p>
-<h3><span id="やってしまったこと">やってしまったこと</span></h3><p>ubuntuのnetplanにネットワーク設定を追加するyamlファイル（60-xxx.yaml）を置いたところ、sshができなくなってしまった。</p>
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/myblog/"><img src="/myblog/img/logo.jpg" alt="Takalog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item is-active" href="/myblog/">Home</a><a class="navbar-item" href="/myblog/archives">Archives</a><a class="navbar-item" href="/myblog/categories">Categories</a><a class="navbar-item" href="/myblog/tags">Tags</a><a class="navbar-item" href="/myblog/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-05T03:51:50.000Z" title="2024/11/5 12:51:50">2024-11-05</time>に投稿</span><span class="level-item"><time dateTime="2024-11-05T05:26:35.724Z" title="2024/11/5 14:26:35">2024-11-05</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/tech/">tech</a></span><span class="level-item">3分で読む (約378語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/2024/11/memo-netplan-and-ssh/">netplanとsshのメモ</a></p><div class="content"><p>職場のクラウド環境から外部のプライベート環境に行くための設定でミスったので、備忘のためのメモ。</p>
+<h3><span id="やってしまったこと"><u>やってしまったこと</u></span></h3><p>ubuntuのnetplanにネットワーク設定を追加するyamlファイル（60-xxx.yaml）を置いたところ、sshができなくなってしまった。</p>
 <p>クラウドを管理してくださってる方にお願いして、yamlファイルを削除してもらったところ、無事復旧。</p>
 <br>
 
-<h3><span id="sshの超初歩ミス">sshの超初歩ミス</span></h3><p>その後、別のパブリッククラウドもubuntu2台を構築してもらっているが、アドレスを指定してもアクセスできない。</p>
+<h3><span id="sshの超初歩ミス"><u>sshの超初歩ミス</u></span></h3><p>その後、別のパブリッククラウドもubuntu2台を構築してもらっているが、アドレスを指定してもアクセスできない。</p>
 <p>と騒いでいたら、ユーザ名を入れていないだけだと分かり赤面。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh aizawa@123.456.789.0</span><br></pre></td></tr></table></figure>
 <br>
@@ -47,7 +47,24 @@
 </a></p>
 <br>
 
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-04T11:34:08.000Z" title="2024/11/4 20:34:08">2024-11-04</time>に投稿</span><span class="level-item"><time dateTime="2024-11-05T05:19:34.017Z" title="2024/11/5 14:19:34">2024-11-05</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/policy/">policy</a></span><span class="level-item">27分で読む (約4000語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/2024/11/dataspaces-history/">欧州のデータスペース関連政策の整理①</a></p><div class="content"><p>先日、経団連が<a target="_blank" rel="noopener" href="https://www.keidanren.or.jp/policy/2024/073.html">「産業データスペースの構築に向けて」</a>を発表した。<br>日本でも徐々に注目を集めつつあるデータスペースについて、欧州の動向を整理しておく。<br><br></p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-04T11:34:08.000Z" title="2024/11/4 20:34:08">2024-11-04</time>に投稿</span><span class="level-item"><time dateTime="2024-11-05T05:25:58.050Z" title="2024/11/5 14:25:58">2024-11-05</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/policy/">policy</a></span><span class="level-item">27分で読む (約4001語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/2024/11/dataspaces-history/">欧州のデータスペース関連政策の整理①</a></p><div class="content"><p>先日、経団連が<a target="_blank" rel="noopener" href="https://www.keidanren.or.jp/policy/2024/073.html">「産業データスペースの構築に向けて」</a>を発表した。<br>日本でも徐々に注目を集めつつあるデータスペースについて、欧州の動向を整理しておく。<br><br></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#%E6%A6%82%E8%A6%B3">概観</a></li>
+<li><a href="#%E6%95%B4%E7%90%86%E3%81%AE%E8%A6%96%E7%82%B9">整理の視点</a><ul>
+<li><a href="#u%E5%87%BA%E7%99%BA%E7%82%B9%E3%81%A8%E3%81%97%E3%81%A6%E3%81%AEdsm%E6%88%A6%E7%95%A5%E7%AC%AC4%E7%AB%A0u"><u>出発点としてのDSM戦略第４章</u></a></li>
+<li><a href="#u%E8%AA%B2%E9%A1%8C%E8%AA%8D%E8%AD%98u"><u>課題認識</u></a></li>
+<li><a href="#u%E7%9B%AE%E6%A8%99%E8%A8%AD%E5%AE%9Au"><u>目標設定</u></a></li>
+<li><a href="#u%E5%85%B7%E4%BD%93%E7%9A%84%E3%81%AA%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3u"><u>具体的なアクション</u></a></li>
+<li><a href="#u%E8%80%83%E5%AF%9Fu"><u>考察</u></a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<br>
+
 <hr>
 <h1><span id="概観">概観</span></h1><hr>
 <p>欧州委員会は、2015年に<a target="_blank" rel="noopener" href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:52015DC0192">デジタル単一市場（Digital Single Market：DSM）戦略</a>を公表した。</p>
