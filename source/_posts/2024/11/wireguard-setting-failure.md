@@ -1,5 +1,5 @@
 ---
-title: wiregurad設定失敗
+title: wiregurad設定失敗メモ
 date: 2024-11-06 10:56:14
 tags: 
  - ssh
