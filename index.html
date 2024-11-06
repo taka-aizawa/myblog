@@ -29,7 +29,181 @@
       switchTab();
       window.addEventListener('hashchange', switchTab, false);
   })();
-  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/myblog/"><img src="/myblog/img/logo.jpg" alt="Takalog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item is-active" href="/myblog/">Home</a><a class="navbar-item" href="/myblog/archives">Archives</a><a class="navbar-item" href="/myblog/categories">Categories</a><a class="navbar-item" href="/myblog/tags">Tags</a><a class="navbar-item" href="/myblog/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-05T10:39:24.000Z" title="2024/11/5 19:39:24">2024-11-05</time>に投稿</span><span class="level-item"><time dateTime="2024-11-05T10:43:46.763Z" title="2024/11/5 19:43:46">2024-11-05</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/tech/">tech</a></span><span class="level-item">数秒で読む (約32語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/2024/11/linux-passwd/">linuxのパスワード確認＆変更</a></p><div class="content"><p>地味だけど大事なのでメモ。</p>
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/myblog/"><img src="/myblog/img/logo.jpg" alt="Takalog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item is-active" href="/myblog/">Home</a><a class="navbar-item" href="/myblog/archives">Archives</a><a class="navbar-item" href="/myblog/categories">Categories</a><a class="navbar-item" href="/myblog/tags">Tags</a><a class="navbar-item" href="/myblog/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-06T01:56:14.000Z" title="2024/11/6 10:56:14">2024-11-06</time>に投稿</span><span class="level-item"><time dateTime="2024-11-06T04:00:04.191Z" title="2024/11/6 13:00:04">2024-11-06</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/tech/">tech</a></span><span class="level-item">9分で読む (約1330語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/2024/11/wireguard-setting-failure/">wiregurad設定失敗</a></p><div class="content"><p><a target="_blank" rel="noopener" href="https://it.impress.co.jp/category/c320097">某テストベッド</a>に参加するためのネットワーク設定が上手くいかない。</p>
+<p>色々試した記録を残す。</p>
+<br>
+
+<h2><span id="構成"><u>構成</u></span></h2><p>wireguardを使って主催者側の閉域網（10.250.*.*）に入る。</p>
+<p>参加者はubuntuを2台用意し、1台にwireguardクライアントを入れてルータとして機能させ、もう一台はルータ端末にぶら下がる形でネットワークに接続できるよう設定する。</p>
+<p>２パターンでの接続を試している。</p>
+<ol>
+<li>職場のプライベートクラウドからの接続</li>
+<li>パブリッククラウド（OCI）からの接続</li>
+</ol>
+<br>
+
+<h2><span id="1-職場のプライベートクラウドからの接続"><u>1. 職場のプライベートクラウドからの接続</u></span></h2><h3><span id="1-2-ルータ端末の設定"><u>1-2. ルータ端末の設定</u></span></h3><p>主催者側のドキュメントに従い、wireguardの設定を進める。<br>事前に受け取っていた.confファイルの中身を一部編集し、wireguardクライアントを起動。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install wireguard</span><br><span class="line"></span><br><span class="line">$ sudo vi /etc/wireguard/wg0.conf #ファイルアクセス権限がない場合はchmod</span><br><span class="line"></span><br><span class="line">$sudo wg-quick up wg0</span><br><span class="line">$sudo systemctl enable wg-quick@wg0</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>接続確認のためnslookupとcurlを実行したところ、こちらは無事に疎通できた。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; nslookup xxxxxx</span><br><span class="line">Server: 123.456.789.0</span><br><span class="line">Address: 123.456.789.0#0</span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">Name: xxxxxx</span><br><span class="line">Address: 123.456.789.0</span><br><span class="line"></span><br><span class="line">&gt; curl xxxxxx</span><br></pre></td></tr></table></figure>
+<br>
+
+<h3><span id="1-2-ぶらさがる端末の設定"><u>1-2. ぶらさがる端末の設定</u></span></h3><p>問題はこちら。</p>
+<p><code>/etc/netplan/99-xxxx-xxxx.yaml</code>を作成し、指定の内容で静的ルーティングの設定を行う。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vi /etc/netplan/99-xxxx-xxxx.yaml</span><br><span class="line"></span><br><span class="line">$ sudo netplan apply</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>ルータ端末と同じようにnslookupを行うも、疎通できず。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; nslookup xxxxxx</span><br><span class="line">Server: 123.456.789.0</span><br><span class="line">Address: 123.456.789.0#0</span><br><span class="line"></span><br><span class="line">** server can&#x27;t find xxxxxx: NXDOMAIN</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>pingでどこが通っているか試してみると、ルータ端末のぶら下がり端末の間は疎通できているらしい。</p>
+<p>ということは、ルータ端末のルーティング設定が上手くいっていない？</p>
+<br>
+
+<h3><span id="試行1ブリッジ用のnicを追加"><u>試行１：ブリッジ用のNICを追加</u></span></h3><p>ブリッジインターフェースと固定IPアドレスを設定して、両端末にインターフェイスを追加してみる。<br>そのために、ルータ側とぶら下がり側の両方に、ブリッジ用の設定ファイル（60-add.yaml）を設置してnetplan applyを実行。</p>
+<p>結果は、、、、インスタンス自体に接続できなくなってしまったヽ(´Д｀;≡;´Д｀)ﾉ</p>
+<p>クラウド管理の御仁に詫びを入れ、コンソールから設定ファイルを削除してもらい、復旧。</p>
+<br>
+
+<h3><span id="試行21つのnicに複数の固定ipアドレスを設定してみる"><u>試行2：1つのNICに複数の固定IPアドレスを設定してみる</u></span></h3><p>参考にさせていただいたのは<a target="_blank" rel="noopener" href="https://qiita.com/rat-engineer755/items/b04e128ee1d2cb4437a5">こちら</a></p>
+<p>まず、cloud-initを無効化のためのファイル作成。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vi /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg</span><br><span class="line"></span><br><span class="line"># sudo touch /etc/cloud/cloud-init.disabledでも良い？</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>現在の設定のバックアップ。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp  /etc/netplan/50-cloud-init.yaml ~/50-cloud-init.yaml.bak</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>NIC設定の編集。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi /etc/netplan/50-cloud-init.yaml</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>で、ルータ端末とぶら下がり端末の両方に10.250.x.y.（主催者側から割り当てられたアドレスに対応するもの）を<code>address</code>に追記。</p>
+<p>さらに、外部からのアクセス確保のため、<code>routes:</code>に以下を追記。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">routes: </span><br><span class="line">              - to:  defalut</span><br><span class="line">                via: aaa.aaa.aaa.aaa </span><br></pre></td></tr></table></figure>
+<br>
+
+<p>で、設定を適用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo netplan apply</span><br></pre></td></tr></table></figure>
+<br>
+これで再びnslookupを試してみるが、、、、
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">** server can&#x27;t find xxxxxx: NXDOMAIN</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>やっぱりダメ。</p>
+<br>
+
+<h3><span id="試行3dhcp4-overridesオプションを使用"><u>試行3：<code>dhcp4-overrides</code>オプションを使用</u></span></h3><p>主催者側に相談してみたところ、以下を&#x2F;etc&#x2F;netplan&#x2F;99-xxxx-xxxx.yamlに追記してみてほしいとのこと。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dhcp4-overrides:</span><br><span class="line">    use-dns: false</span><br><span class="line">    use-domains: false</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>これを追記して、netplan applyからのnslookup。結果は、、、</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">** server can&#x27;t find xxxxxx: NXDOMAIN</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>これもダメ。</p>
+<br>
+
+<h2><span id="1-職場のプライベートクラウドからの接続"><u>1. 職場のプライベートクラウドからの接続</u></span></h2><p>クラウド管理の御仁に相談したところ、OCIで10.250のプライベートネットワークを組んでubuntuを3台（踏み台＋実機）立ててくださった。大感謝！！</p>
+<p>これでできるのではと、意気揚々とドキュメント通りに作業を進めたところ、、、、</p>
+<p>wireguardのクライアント起動時のエラー（<code>/usr/bin/wg-quick: line 32: resolvconf: command not found</code>）に対処するシンボリックリンク作成コマンドを実行したら、なんとインスタンスが固まってしまい、またsshできなくなる。。。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ln -s /usr/bin/resolvectl /usr/local/bin/resolvconf</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>またまたコンソールからリンクを削除してもらう羽目に。すみません。</p>
+<p>なかなか環境構築が進まない。。。</p>
+<br></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-06T01:56:14.000Z" title="2024/11/6 10:56:14">2024-11-06</time>に投稿</span><span class="level-item"><time dateTime="2024-11-06T04:01:31.832Z" title="2024/11/6 13:01:31">2024-11-06</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/tech/">tech</a></span><span class="level-item">9分で読む (約1330語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/wireguard-setting-failure/">wiregurad設定失敗メモ</a></p><div class="content"><p><a target="_blank" rel="noopener" href="https://it.impress.co.jp/category/c320097">某テストベッド</a>に参加するためのネットワーク設定が上手くいかない。</p>
+<p>色々試した記録を残す。</p>
+<br>
+
+<h2><span id="構成"><u>構成</u></span></h2><p>wireguardを使って主催者側の閉域網（10.250.*.*）に入る。</p>
+<p>参加者はubuntuを2台用意し、1台にwireguardクライアントを入れてルータとして機能させ、もう一台はルータ端末にぶら下がる形でネットワークに接続できるよう設定する。</p>
+<p>２パターンでの接続を試している。</p>
+<ol>
+<li>職場のプライベートクラウドからの接続</li>
+<li>パブリッククラウド（OCI）からの接続</li>
+</ol>
+<br>
+
+<h2><span id="1-職場のプライベートクラウドからの接続"><u>1. 職場のプライベートクラウドからの接続</u></span></h2><h3><span id="1-2-ルータ端末の設定"><u>1-2. ルータ端末の設定</u></span></h3><p>主催者側のドキュメントに従い、wireguardの設定を進める。<br>事前に受け取っていた.confファイルの中身を一部編集し、wireguardクライアントを起動。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install wireguard</span><br><span class="line"></span><br><span class="line">$ sudo vi /etc/wireguard/wg0.conf #ファイルアクセス権限がない場合はchmod</span><br><span class="line"></span><br><span class="line">$sudo wg-quick up wg0</span><br><span class="line">$sudo systemctl enable wg-quick@wg0</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>接続確認のためnslookupとcurlを実行したところ、こちらは無事に疎通できた。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; nslookup xxxxxx</span><br><span class="line">Server: 123.456.789.0</span><br><span class="line">Address: 123.456.789.0#0</span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">Name: xxxxxx</span><br><span class="line">Address: 123.456.789.0</span><br><span class="line"></span><br><span class="line">&gt; curl xxxxxx</span><br></pre></td></tr></table></figure>
+<br>
+
+<h3><span id="1-2-ぶらさがる端末の設定"><u>1-2. ぶらさがる端末の設定</u></span></h3><p>問題はこちら。</p>
+<p><code>/etc/netplan/99-xxxx-xxxx.yaml</code>を作成し、指定の内容で静的ルーティングの設定を行う。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vi /etc/netplan/99-xxxx-xxxx.yaml</span><br><span class="line"></span><br><span class="line">$ sudo netplan apply</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>ルータ端末と同じようにnslookupを行うも、疎通できず。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; nslookup xxxxxx</span><br><span class="line">Server: 123.456.789.0</span><br><span class="line">Address: 123.456.789.0#0</span><br><span class="line"></span><br><span class="line">** server can&#x27;t find xxxxxx: NXDOMAIN</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>pingでどこが通っているか試してみると、ルータ端末のぶら下がり端末の間は疎通できているらしい。</p>
+<p>ということは、ルータ端末のルーティング設定が上手くいっていない？</p>
+<br>
+
+<h3><span id="試行1ブリッジ用のnicを追加"><u>試行１：ブリッジ用のNICを追加</u></span></h3><p>ブリッジインターフェースと固定IPアドレスを設定して、両端末にインターフェイスを追加してみる。<br>そのために、ルータ側とぶら下がり側の両方に、ブリッジ用の設定ファイル（60-add.yaml）を設置してnetplan applyを実行。</p>
+<p>結果は、、、、インスタンス自体に接続できなくなってしまったヽ(´Д｀;≡;´Д｀)ﾉ</p>
+<p>クラウド管理の御仁に詫びを入れ、コンソールから設定ファイルを削除してもらい、復旧。</p>
+<br>
+
+<h3><span id="試行21つのnicに複数の固定ipアドレスを設定してみる"><u>試行2：1つのNICに複数の固定IPアドレスを設定してみる</u></span></h3><p>参考にさせていただいたのは<a target="_blank" rel="noopener" href="https://qiita.com/rat-engineer755/items/b04e128ee1d2cb4437a5">こちら</a></p>
+<p>まず、cloud-initを無効化のためのファイル作成。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vi /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg</span><br><span class="line"></span><br><span class="line"># sudo touch /etc/cloud/cloud-init.disabledでも良い？</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>現在の設定のバックアップ。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp  /etc/netplan/50-cloud-init.yaml ~/50-cloud-init.yaml.bak</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>NIC設定の編集。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi /etc/netplan/50-cloud-init.yaml</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>で、ルータ端末とぶら下がり端末の両方に10.250.x.y.（主催者側から割り当てられたアドレスに対応するもの）を<code>address</code>に追記。</p>
+<p>さらに、外部からのアクセス確保のため、<code>routes:</code>に以下を追記。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">routes: </span><br><span class="line">              - to:  defalut</span><br><span class="line">                via: aaa.aaa.aaa.aaa </span><br></pre></td></tr></table></figure>
+<br>
+
+<p>で、設定を適用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo netplan apply</span><br></pre></td></tr></table></figure>
+<br>
+これで再びnslookupを試してみるが、、、、
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">** server can&#x27;t find xxxxxx: NXDOMAIN</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>やっぱりダメ。</p>
+<br>
+
+<h3><span id="試行3dhcp4-overridesオプションを使用"><u>試行3：<code>dhcp4-overrides</code>オプションを使用</u></span></h3><p>主催者側に相談してみたところ、以下を&#x2F;etc&#x2F;netplan&#x2F;99-xxxx-xxxx.yamlに追記してみてほしいとのこと。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dhcp4-overrides:</span><br><span class="line">    use-dns: false</span><br><span class="line">    use-domains: false</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>これを追記して、netplan applyからのnslookup。結果は、、、</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">** server can&#x27;t find xxxxxx: NXDOMAIN</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>これもダメ。</p>
+<br>
+
+<h2><span id="1-職場のプライベートクラウドからの接続"><u>1. 職場のプライベートクラウドからの接続</u></span></h2><p>クラウド管理の御仁に相談したところ、OCIで10.250のプライベートネットワークを組んでubuntuを3台（踏み台＋実機）立ててくださった。大感謝！！</p>
+<p>これでできるのではと、意気揚々とドキュメント通りに作業を進めたところ、、、、</p>
+<p>wireguardのクライアント起動時のエラー（<code>/usr/bin/wg-quick: line 32: resolvconf: command not found</code>）に対処するシンボリックリンク作成コマンドを実行したら、なんとインスタンスが固まってしまい、またsshできなくなる。。。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ln -s /usr/bin/resolvectl /usr/local/bin/resolvconf</span><br></pre></td></tr></table></figure>
+<br>
+
+<p>またまたコンソールからリンクを削除してもらう羽目に。すみません。</p>
+<p>なかなか環境構築が進まない。。。</p>
+<br></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-05T10:39:24.000Z" title="2024/11/5 19:39:24">2024-11-05</time>に投稿</span><span class="level-item"><time dateTime="2024-11-05T10:43:46.763Z" title="2024/11/5 19:43:46">2024-11-05</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/tech/">tech</a></span><span class="level-item">数秒で読む (約32語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/2024/11/linux-passwd/">linuxのパスワード確認＆変更</a></p><div class="content"><p>地味だけど大事なのでメモ。</p>
 <p>パスワード確認。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat .passwd</span><br></pre></td></tr></table></figure>
 <br>
@@ -300,7 +474,7 @@
 <p>＃デザインファイル（hexo-theme-icarus&#x2F;style&#x2F;*.styl）の変更が<code>hexo deploy -g</code>コマンドでもうまく反映できないのが追加課題。。。</p>
 <br>
 <br>
-</div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/myblog/img/a.jpg" alt="Taka"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Taka</p><p class="is-size-6 is-block">An engineering apprentice</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Tokyo, Japan</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">投稿</p><a href="/myblog/archives"><p class="title">6</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">カテゴリ</p><a href="/myblog/categories"><p class="title">2</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">タグ</p><a href="/myblog/tags"><p class="title">6</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/tkaizawa" target="_blank" rel="me noopener">フォローする</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/tkaizawa"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a></div></div></div><!--!--><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">タグ</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/myblog/tags/Git/"><span class="tag">Git</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/Hexo/"><span class="tag">Hexo</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/Icarus/"><span class="tag">Icarus</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/linux/"><span class="tag">linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/network/"><span class="tag">network</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/ssh/"><span class="tag">ssh</span><span class="tag">1</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最近の記事</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-05T10:39:24.000Z">2024-11-05</time></p><p class="title"><a href="/myblog/2024/11/linux-passwd/">linuxのパスワード確認＆変更</a></p><p class="categories"><a href="/myblog/categories/tech/">tech</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-05T03:51:50.000Z">2024-11-05</time></p><p class="title"><a href="/myblog/2024/11/memo-netplan-and-ssh/">netplanとsshのメモ</a></p><p class="categories"><a href="/myblog/categories/tech/">tech</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-03T01:26:31.000Z">2024-11-03</time></p><p class="title"><a href="/myblog/2024/11/hexo-plugin-toc/">Hexoに目次のプラグインを導入</a></p><p class="categories"><a href="/myblog/categories/blog/">blog</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-02T13:59:52.000Z">2024-11-02</time></p><p class="title"><a href="/myblog/2024/11/github-username-modify/">GitHubのユーザ名を変更</a></p><p class="categories"><a href="/myblog/categories/tech/">tech</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-02T09:03:13.000Z">2024-11-02</time></p><p class="title"><a href="/myblog/2024/11/github-backup/">GitHubでバックアップ</a></p><p class="categories"><a href="/myblog/categories/blog/">blog</a></p></div></article></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">カテゴリ</h3><ul class="menu-list"><li><a class="level is-mobile" href="/myblog/categories/blog/"><span class="level-start"><span class="level-item">blog</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/myblog/categories/tech/"><span class="level-start"><span class="level-item">tech</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">アーカイブ</h3><ul class="menu-list"><li><a class="level is-mobile" href="/myblog/archives/2024/11/"><span class="level-start"><span class="level-item">2024-11</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/myblog/archives/2024/10/"><span class="level-start"><span class="level-item">2024-10</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/myblog/"><img src="/myblog/img/logo.jpg" alt="Takalog" height="28"></a><p class="is-size-7"><span>&copy; 2024 Taka</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("ja");</script><script>var IcarusThemeSettings = {
+</div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/myblog/img/a.jpg" alt="Taka"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Taka</p><p class="is-size-6 is-block">An engineering apprentice</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Tokyo, Japan</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">投稿</p><a href="/myblog/archives"><p class="title">8</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">カテゴリ</p><a href="/myblog/categories"><p class="title">2</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">タグ</p><a href="/myblog/tags"><p class="title">7</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/tkaizawa" target="_blank" rel="me noopener">フォローする</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/tkaizawa"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a></div></div></div><!--!--><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">タグ</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/myblog/tags/Git/"><span class="tag">Git</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/Hexo/"><span class="tag">Hexo</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/Icarus/"><span class="tag">Icarus</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/linux/"><span class="tag">linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/network/"><span class="tag">network</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/ssh/"><span class="tag">ssh</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/myblog/tags/wireguard/"><span class="tag">wireguard</span><span class="tag">2</span></a></div></div></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最近の記事</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-06T01:56:14.000Z">2024-11-06</time></p><p class="title"><a href="/myblog/2024/11/wireguard-setting-failure/">wiregurad設定失敗</a></p><p class="categories"><a href="/myblog/categories/tech/">tech</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-06T01:56:14.000Z">2024-11-06</time></p><p class="title"><a href="/myblog/wireguard-setting-failure/">wiregurad設定失敗メモ</a></p><p class="categories"><a href="/myblog/categories/tech/">tech</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-05T10:39:24.000Z">2024-11-05</time></p><p class="title"><a href="/myblog/2024/11/linux-passwd/">linuxのパスワード確認＆変更</a></p><p class="categories"><a href="/myblog/categories/tech/">tech</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-05T03:51:50.000Z">2024-11-05</time></p><p class="title"><a href="/myblog/2024/11/memo-netplan-and-ssh/">netplanとsshのメモ</a></p><p class="categories"><a href="/myblog/categories/tech/">tech</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-11-03T01:26:31.000Z">2024-11-03</time></p><p class="title"><a href="/myblog/2024/11/hexo-plugin-toc/">Hexoに目次のプラグインを導入</a></p><p class="categories"><a href="/myblog/categories/blog/">blog</a></p></div></article></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">カテゴリ</h3><ul class="menu-list"><li><a class="level is-mobile" href="/myblog/categories/blog/"><span class="level-start"><span class="level-item">blog</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/myblog/categories/tech/"><span class="level-start"><span class="level-item">tech</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">アーカイブ</h3><ul class="menu-list"><li><a class="level is-mobile" href="/myblog/archives/2024/11/"><span class="level-start"><span class="level-item">2024-11</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/myblog/archives/2024/10/"><span class="level-start"><span class="level-item">2024-10</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/myblog/"><img src="/myblog/img/logo.jpg" alt="Takalog" height="28"></a><p class="is-size-7"><span>&copy; 2024 Taka</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("ja");</script><script>var IcarusThemeSettings = {
             article: {
                 highlight: {
                     clipboard: true,
