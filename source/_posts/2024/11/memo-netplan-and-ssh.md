@@ -3,8 +3,7 @@ title: netplanとsshのメモ
 date: 2024-11-05 12:51:50
 tags: 
  - ssh
- - network
-category: tech
+category: network
 ---
 
 職場のクラウド環境から外部のプライベート環境に行くための設定でミスったので、備忘のためのメモ。

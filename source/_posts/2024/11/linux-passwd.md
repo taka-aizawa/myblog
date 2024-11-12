@@ -1,8 +1,8 @@
 ---
 title: linuxのパスワード確認＆変更
 date: 2024-11-05 19:39:24
-tags: linux
-category: tech
+tags: コマンド
+category: linux
 ---
 
 地味だけど大事なのでメモ。

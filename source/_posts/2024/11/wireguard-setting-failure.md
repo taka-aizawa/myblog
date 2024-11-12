@@ -3,9 +3,8 @@ title: wiregurad設定失敗メモ
 date: 2024-11-06 10:56:14
 tags: 
  - ssh
- - network
  - wireguard
-category: tech
+category: network
 ---
 
 [某テストベッド](https://it.impress.co.jp/category/c320097)に参加するためのネットワーク設定が上手くいかない。

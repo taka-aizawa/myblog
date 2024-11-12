@@ -1,10 +1,8 @@
 ---
 title: wiregurad設定成功メモ
 date: 2024-11-07 10:56:14
-tags: 
-- network
-- wireguard
-category: tech
+tags: wireguard
+category: network
 ---
 
 ようやくwireguardの設定がうまくいったので、メモに残す。
