@@ -86,10 +86,10 @@ deploy:
 今後は編集するたびに以下のコマンドを繰り返せばよさそう。
 
 ~~~
-$ hexo generate
-$ git add
+$ git add .
 $ git commit -m "XXXXX"
 $ git push origin main
+$ hexo generate
 $ hexo deploy
 ~~~
 <br>
