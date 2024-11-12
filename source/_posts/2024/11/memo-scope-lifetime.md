@@ -21,7 +21,6 @@ inet 133.xxx.xxx.xxx/24 brd 133.xxx.xxx.255 scope global noprefixroute enp1s0
 ---
 
 [前回の投稿](https://tkaizawa.github.io/myblog/memo-localhost-ip-and-loopback/)では`scope local`がローカルホスト内でのみ有効で、外部アクセスはできない設定だと学んだ。
-    - ex. IPv4の`127.0.0.1`やIPv6の`::1`など
 
 そもそもこの**scope**はIPネットワークの範囲（IPアドレスが有効な範囲、アクセス可能範囲）を表現した概念。
 
