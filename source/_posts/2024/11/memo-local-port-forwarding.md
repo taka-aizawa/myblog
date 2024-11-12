@@ -1,5 +1,5 @@
 ---
-title: SSHローカルポートフォワーディングのメモ
+title: SSHローカルポートフォワーディング
 date: 2024-11-11 17:23:32
 tags: ssh
 category: network
