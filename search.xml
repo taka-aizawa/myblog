@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>特定のポートとプロセスについて調べる</title>
+      <link href="/myblog/2024/11/memo-linux-lsof/"/>
+      <url>/myblog/2024/11/memo-linux-lsof/</url>
+      
+        <content type="html"><![CDATA[<p>CKANを一旦アンインストールして再インストールしたところ、アンインストール前のユーザ情報・アカウント情報が引き継がれていた。</p><p>これらの情報はどこのファイルを参照しているのかと思い、ポートからプロセスを確認すればよい？？と思いつき、調べ方を確認してみた。</p><p>参考にさせていただいたサイトはこちら。</p><ul><li><a href="https://qiita.com/hypermkt/items/905139168b0bc5c28ef2">lsofコマンド入門</a></li><li><a href="https://qiita.com/kooohei/items/9e3859e3d1d854c3d163">lsofを使ってプロセスが利用しているポートを確認する。</a></li></ul><p>ただ、実際はlsofコマンドを使う必要はなくて、CKANのファイルやディレクトリ構造を調べれば良いだけだった。初心者の回り道ハズカシイ。。。</p><br><hr><h1><span id="lsofコマンド">lsofコマンド</span></h1><hr><p>特定のポートとプロセスの対応関係を調べるには、lsofコマンドを使用する。<br>なお、</p><p>「lsof」は「list open files」の略とのこと（Wikipedia調べ）。</p><br><hr><h1><span id="調べてみる">調べてみる</span></h1><hr><p><code>localhost:5000</code>のプロセスを調べてみる。<br>（「いやCKANって最初から判っているやん！」というツッコミは後ほど理解した。）</p><br><h3><span id="ポート5000のプロセスを特定"><u>ポート5000のプロセスを特定</u></span></h3><p>「-i:ポート番号」オプションで、指定したポート番号で実行中のプロセスが表示される。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo lsof -i:5000</span><br></pre></td></tr></table></figure><br><p>上記の出力を見ると、5000番ポートで実行されているプロセスのID（PID）が表示される。<br>今回のPIDは410879だった。</p><br><h3><span id="出力結果のpidから-プロセスがアクセルしているファイルを調べる"><u>出力結果のPIDから、プロセスがアクセルしているファイルを調べる</u></span></h3><p>このPIDをキーにして、プロセスがアクセスしているファイルやディレクトリを確認する。</p><p>「-p」オプションでPIDを指定すると、そのプロレスがアクセスしているファイルが表示できる。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo lsof -p 410879</span><br><span class="line"></span><br><span class="line">COMMAND      PID USER   FD      TYPE    DEVICE SIZE/OFF      NODE NAME</span><br><span class="line">docker-pr 410879 root  cwd       DIR     253,0      224       128 /</span><br><span class="line">docker-pr 410879 root  rtd       DIR     253,0      224       128 /</span><br><span class="line">...</span><br></pre></td></tr></table></figure><br><h3><span id="そういえばdockerでckan動かしてたわ"><u>そういえばDockerでCKAN動かしてたわ、、、</u></span></h3><p>表示内容を見てみると、410879のプロセスはdocker-proxyコマンドで実行されている。つまり、DockerがCKANのプロセスを<code>localhost:5000</code>にポートフォワーディングしている。</p><p>と、ここまで作業してみて、</p><ul><li>そういえばCKANをDockerで実行してたやん、、、</li><li>知りたいのはCKAN内部の参照ファイルなんだから、わざわざポート番号からプロセスを特定しなくてもCKANがユーザ情報やグループ情報を格納しているファイルやディレクトリを調べれば良いやん、、、</li></ul><p>と思い至る。</p><br><h3><span id="chat-gptに聞いてみる"><u>Chat-GPTに聞いてみる</u></span></h3><blockquote><p>Q. CKANの内部フォルダの中で、ユーザグループ情報を格納しているフォルダの名前は何か？</p></blockquote><blockquote><p>A. CKANでは、ユーザグループ情報は主にデータベースに格納されており、特定のフォルダに保存されているわけではありません。ただし、コードやテンプレート、設定ファイルにアクセスしたい場合は、以下のディレクトリが関係しています。</p><p><strong>主に関係するディレクトリ</strong></p><ol><li><p>ckan&#x2F;model<br>model ディレクトリには CKAN の ORM モデル（データベースとのやり取りの仕組み）が含まれています。group.py ファイルには、ユーザグループ（オーガナイゼーションやグループ）のデータ構造が定義されています。</p></li><li><p>ckan&#x2F;logic&#x2F;action<br>action ディレクトリには、グループに関連する API やロジックが含まれており、group.py や &gt; organization.py でユーザグループや組織の操作が実装されています。</p></li><li><p>ckan&#x2F;templates<br>templates フォルダには、ユーザーやグループ情報を表示する HTML テンプレートが含まれており、特に group または organization サブディレクトリが関連するテンプレートです。</p></li></ol><p><strong>データベースとの関連</strong><br>CKAN では、ユーザ、グループ、組織などの情報は PostgreSQL データベース内に格納されます。ユーザグループに関する情報は、主に以下のようなテーブルに保存されています。</p><p>group テーブル: グループ情報を格納<br>member テーブル: ユーザとグループの関係を格納</p></blockquote><br><blockquote><p>Q. rocky linuxでCKANを一度アンインストールして再度インストールしたところ、アンインストール前のグループ情報等が残っていた。これはなぜか？</p></blockquote><blockquote><p>A. CKANをアンインストールしても、設定やデータはデータベースとファイルシステムの別の場所に保存されているため、アンインストール前のデータが残っている可能性があります。以下が考えられる理由です。</p><p><strong>1.データベースのデータが残っている</strong><br>CKANのデータ（グループ、ユーザ、データセットなど）は、通常 PostgreSQL データベースに保存されています。アンインストールしても、データベース自体やその内容は削除されないため、再インストール時に同じデータベースを参照すると、以前のデータがそのまま残っていることになります。</p><p>対策：CKAN のデータベースを削除またはリセットするには、次のような PostgreSQL コマンドを使用してデータベースを削除・再作成する必要があります。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres dropdb ckan_default</span><br><span class="line">sudo -u postgres createdb -O ckan_default ckan_default</span><br></pre></td></tr></table></figure><p><strong>2.storage_path ディレクトリが残っている</strong><br>CKAN の設定ファイル（通常 production.ini）で指定されている storage_path は、ファイルアップロード先のディレクトリです。このフォルダ内には、データセットのファイルやリソースが保存されるため、アンインストールしても削除されません。</p><p>対策：storage_path のフォルダ（通常 &#x2F;var&#x2F;lib&#x2F;ckan&#x2F;default など）を手動で削除することで、アップロードされたファイルやキャッシュが削除されます。<br><strong>3. 設定ファイルの残存</strong><br>CKAN の設定ファイル（例：&#x2F;etc&#x2F;ckan&#x2F;default&#x2F;production.ini）が残っている場合もあります。このファイルにはデータベース接続情報が含まれているため、再インストール後も同じデータベースに接続することになります。</p><p>対策：production.ini ファイルを確認し、再インストールの際に新しい設定ファイルを作成するか、データベース設定を変更してください。</p><p>このように、アンインストール後にデータベースやファイルシステムに残っているデータが再インストール時に参照されるため、以前のグループ情報などが残っている可能性が高いです。</p></blockquote><br><h3><span id="別に問題なさそう"><u>別に問題なさそう</u></span></h3><p>上記の回答で、CKANが参照しているフォルダの場所がわかった（&#x2F;etc&#x2F;ckan&#x2F;default&#x2F;や&#x2F;var&#x2F;lib&#x2F;ckan&#x2F;default　など）ので、とりあえず調べるのはここまでにして、何か問題が発生したらもう少し詳しく調べることにした。</p><br>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> コマンド </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>SSHローカルポートフォワーディングのメモ</title>
+      <link href="/myblog/2024/11/memo-local-port-forwarding/"/>
+      <url>/myblog/2024/11/memo-local-port-forwarding/</url>
+      
+        <content type="html"><![CDATA[<p>プライベートクラウド上の作業をローカルで確認したい時に使うローカルポートフォワーディングについてのメモ。</p><br><hr><h1><span id="ssh-ローカルポートフォワードとは">SSH ローカルポートフォワードとは</span></h1><hr><blockquote><p>SSH ローカルポートフォワードとは、SSH の接続を通して、ローカルホストの TCP ポートへの接続をリモートホストの TCP ポートに転送する機能です。ポートフォワーディング、トンネリングと呼ばれたりします。</p><p>SSH ローカルポートフォワーディングを利用すると、作業端末から直接接続ができないポートに、SSH により確立された接続を使ってアクセスすることができるようになります。例えば、内部のネットワークのみに公開している Web サイト、データベース、リモートデスクトップに外部から接続したいときなどに使えます。SSH だけ空いていればつながるので、一時的な裏口を作るイメージです。</p></blockquote><p>【参考】<a href="https://www.karakaram.com/notes-on-ssh-local-port-forwarding/">SSHローカルポートフォワードの覚え書き</a><br>（説明がわかりやすい！）</p><br><hr><h1><span id="コマンド">コマンド</span></h1><hr><p>通常のsshコマンドにLオプション（「Local」の意味）と、繋げたいローカルポート・リモートポートを指定する。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh ユーザ名@リモートマシン名 -i .ssh/rsa -L 8080:localhost:80</span><br></pre></td></tr></table></figure><br><p>このとき、</p><ul><li><p><code>ssh ユーザ名@マシン名</code>は、通常のssh接続</p></li><li><p><code>-i .ssh/rsa</code>は、ログインに使う秘密鍵ファイルの指定。</p></li><li><p><code>-L 8080:localhost:80</code>は、ローカルポートフォワーディングの設定。これにより、接続元のローカルマシンのポート8080をリモートマシンのlocalhostポート80に転送して、接続が可能になる。</p></li></ul><br><hr><h1><span id="別のポートフォワーディング">別のポートフォワーディング</span></h1><hr><p>他にリモートポートフォワーディング（オプションは-R）、ダイナミックポートフォワーディングがある。</p><p>【参考】<a href="https://tech-lab.sios.jp/archives/37377">ssh接続のポートフォワーディングは3種類ある！</a></p><p>が、あまり使わないかも？余裕がある時にまた勉強。</p><p>【参考】<a href="https://qiita.com/kazu_ppp/items/55e11b1b64683e3b85a8">SSHポートフォワーディング機能のおさらいと利用例</a></p><br>]]></content>
+      
+      
+      <categories>
+          
+          <category> network </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ssh </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>wiregurad設定成功メモ</title>
       <link href="/myblog/2024/11/wireguard-setting-success/"/>
       <url>/myblog/2024/11/wireguard-setting-success/</url>
@@ -13,14 +63,12 @@
       
       <categories>
           
-          <category> tech </category>
+          <category> network </category>
           
       </categories>
       
       
         <tags>
-            
-            <tag> network </tag>
             
             <tag> wireguard </tag>
             
@@ -40,7 +88,7 @@
       
       <categories>
           
-          <category> tech </category>
+          <category> network </category>
           
       </categories>
       
@@ -48,8 +96,6 @@
         <tags>
             
             <tag> ssh </tag>
-            
-            <tag> network </tag>
             
             <tag> wireguard </tag>
             
@@ -69,14 +115,14 @@
       
       <categories>
           
-          <category> tech </category>
+          <category> linux </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> linux </tag>
+            <tag> コマンド </tag>
             
         </tags>
       
@@ -94,7 +140,7 @@
       
       <categories>
           
-          <category> tech </category>
+          <category> network </category>
           
       </categories>
       
@@ -102,8 +148,6 @@
         <tags>
             
             <tag> ssh </tag>
-            
-            <tag> network </tag>
             
         </tags>
       
