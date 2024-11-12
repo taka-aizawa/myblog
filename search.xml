@@ -4,9 +4,34 @@
   
     
     <entry>
+      <title>ipコマンドの出力結果（scope、lifetime）</title>
+      <link href="/myblog/2024/11/memo-scope-lifetime/"/>
+      <url>/myblog/2024/11/memo-scope-lifetime/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://tkaizawa.github.io/myblog/memo-localhost-ip-and-loopback/">前回の投稿</a>で<code>ip a</code>コマンドを見た際、ループバックアドレス以外のアドレスの内容も気になり調べた結果をメモしておく。</p><p>例えば、以下のような出力結果について見ていく。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">inet 133.xxx.xxx.xxx/24 brd 133.xxx.xxx.255 scope global noprefixroute enp1s0</span><br><span class="line">   valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure><br><hr><h1><span id="scopeについて">scopeについて</span></h1><hr><p><a href="https://tkaizawa.github.io/myblog/memo-localhost-ip-and-loopback/">前回の投稿</a>では<code>scope local</code>がローカルホスト内でのみ有効で、外部アクセスはできない設定だと学んだ。<br>    - ex. IPv4の<code>127.0.0.1</code>やIPv6の<code>::1</code>など</p><p>そもそもこの<strong>scope</strong>はIPネットワークの範囲（IPアドレスが有効な範囲、アクセス可能範囲）を表現した概念。</p><p>scopeにはlocalのほかにglobal、linkなどの分類がある（IPv4、IPv6によって定義が異なる）。</p><p><code>scope global</code>：</p><ul><li>グローバルにアクセス可能なアドレス。</li><li>例えば、インターネットにアクセスするための<code>133.xxx.xxx.xxx</code>などのIPv4アドレスなど。</li></ul><p><code>scope link</code>：</p><ul><li>同一リンク（ネットワークインターフェース）上でのみ有効なアドレスで、ルータ等のL3中継装置で区切られたセグメント単位を越えることはできない。</li><li>主にリンクローカルアドレス（IPv6の<code>fe80::/64</code>範囲など）で使用され、隣接デバイスとの直接通信に使われる。</li></ul><p>【参考】<a href="https://www.vwnet.jp/IPv6ImplementationGuide/01/01-11.htm">スコープという考え方</a></p><br><hr><h1><span id="valid_lftについて">valid_lftについて</span></h1><hr><p><code>valid_lft</code>や<code>preferred_lft</code>などはIPアドレスの有効期間（Lifetime）を示している。</p><p><code>valid_lft</code>：</p><ul><li>Valid_Lifetimeの略で、アドレスが有効である期間を秒数で表示する。</li><li><code>forever</code>と表示される場合、アドレスの有効期限が無期限であることを表す。</li><li>この時間が切れるとそのアドレスは無効になり、システムから削除されることがある。</li></ul><p><code>preferred_lft</code>：</p><ul><li>Preferred_Lifetimeの略で、アドレスが優先的に使用される期間を示している。</li><li>この期間内は、システムが他のアドレスよりもこのアドレスを優先して使う。</li></ul><br><hr><h1><span id="出力結果の再見">出力結果の再見</span></h1><hr><p>再度出力結果を見てみる。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">inet 133.xxx.xxx.xxx/24 brd 133.xxx.xxx.255 scope global noprefixroute enp1s0</span><br><span class="line">   valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure><br><p>この例の意味は以下のようになる。</p><p><code>enp1s0</code>：インターフェース名（接続名）<br><code>scope global</code>：グローバルにアクセス可能である<br><code>valid_lft forever preferred_lft forever</code>：このアドレスは無期限に有効で、優先的に使用される</p><p>なお、<code>ip</code>コマンドの内容の見方（<code>ifconfig</code>を使う人もいるが<a href="https://tech.mktime.com/entry/211">非推奨らしい</a>）については、以下の方が素晴らしくまとめて下さっている。<br><a href="https://qiita.com/pe-ta/items/aff8db72530c6baa11b2">ifconfigの出力結果に書いてあること</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> network </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> TCP/IP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ローカルホストのipアドレス、ループバックアドレス</title>
-      <link href="/myblog/memo-localhost-ip-and-loopback/"/>
-      <url>/myblog/memo-localhost-ip-and-loopback/</url>
+      <link href="/myblog/2024/11/memo-localhost-ip-and-loopback/"/>
+      <url>/myblog/2024/11/memo-localhost-ip-and-loopback/</url>
       
         <content type="html"><![CDATA[<p><a href="https://it.impress.co.jp/articles/-/26894">IT LeadersのCADDEの記事</a>を読んでいて理解が足りない箇所があり、調べた際のメモ。</p><br><hr><h1><span id="わからなかったこと1">わからなかったこと①</span></h1><hr><p>躓いた箇所はこちら。</p><blockquote><p>ここでは、提供者カタログサイトを5000番ポートで起動しているため、ローカルホストのIPアドレスを指定します。なお、ループバックアドレスやlocalhostを使用すると、提供者コネクタを起動するコンテナ自体を指してしまうことに注意が必要です。ローカルホストのIPアドレスは、Linuxであればip aなどのコマンドから確認できます。<br><br></p></blockquote><p>ローカルホストのIPアドレスは<code>ip a</code>などのコマンドから確認できる、とあったので確認してみたが、沢山出てきてどれがローカルホストのアドレスだかわからなかった。</p><br><hr><h1><span id="調べてわかったこと1">調べてわかったこと①</span></h1><hr><p>Chat-GPT先生に相談しなから調べてみたところ、以下がローカルホストのIPアドレスとのこと。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inet 127.0.0.1/8 scope host lo</span><br></pre></td></tr></table></figure><br><p>これがなぜローカルホストのIPだとわかるか？<br><br></p><h3><span id="1-ipアドレスの範囲"><u>1. IPアドレスの範囲</u></span></h3><p><code>127.0.0.1</code>は、IPv4の「<strong>ループバックアドレス</strong>」として特別に予約されているアドレス。<code>127.0.0.1/8</code>という範囲（<code>127.0.0.0</code>から<code>127.255.255.255</code>）はすべて、ループバック用途のみに使用され、外部ネットワークと通信せずに、システム内で自身を指すアドレスとして使われる。<br><br></p><p><strong>ループバックアドレスとは？</strong><br>自分自身を指すIPアドレス。<code>127.0.0.1</code>から<code>127.255.255.255</code>であればいくつでもよい。locakhostも自分自身を指すが、こちらはホスト名のこと。</p><p>ネットワークの標準仕様として、<code>127.0.0.1</code>はlocalhostを指すIPアドレスと定義されており、これはシステム間で共有の設定。</p><p>【参考】<a href="https://qiita.com/miyuki_samitani/items/22eaecd135bf190e45f0">ループバックアドレスとは</a><br>（記事内の参考リンクも合わせて読むと理解が深まる）<br><br></p><h3><span id="2-インターフェース名がlo"><u>2. インターフェース名が「lo」</u></span></h3><p><code>lo</code>は「loopback（ループバック）」の略で、通常どのシステムでも自分自身への通信のための仮想インターフェース（I&#x2F;F）にこの名前が付けられている。このI&#x2F;Fは、<u>システムが外部ネットワークを介さずに自分自身と通信するため</u>に使用される。<br><br></p><h3><span id="3-scope-host"><u>３. scope host</u></span></h3><p><code>scope host</code>は、このアドレスがホスト内にのみ有効であることを示している。外部からアクセスされることはなく、ホスト内の通信にのみ使われる設定。<br><br></p><hr><h1><span id="わからなかったこと2">わからなかったこと②</span></h1><hr><p>ローカルホストのIPアドレスについてはなんとなくわかってきたが、記事の</p><blockquote><p>なお、ループバックアドレスやlocalhostを使用すると、提供者コネクタを起動するコンテナ自体を指してしまうことに注意が必要です。</p></blockquote><p>という文言がよくわからなくなった。</p><p>ローカルホストのIPアドレスを指定するけどlocalhostはNG？<br><br></p><hr><h1><span id="多分わかったこと2">多分わかったこと②</span></h1><hr><p>「ローカルホストに振られているIPアドレスのうち、ループバックアドレス（<code>127.0.0.1</code>）やlocalhostが以外のアドレスを指定しましょう」と解釈した。</p><p>そのため、職場のプライベートクラウド内で使用しているプライベートネットワークのIPアドレスを指定してみる。</p><br>]]></content>
       
@@ -54,7 +79,7 @@
     
     
     <entry>
-      <title>SSHローカルポートフォワーディングのメモ</title>
+      <title>SSHローカルポートフォワーディング</title>
       <link href="/myblog/2024/11/memo-local-port-forwarding/"/>
       <url>/myblog/2024/11/memo-local-port-forwarding/</url>
       
