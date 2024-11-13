@@ -77,3 +77,5 @@ inet 133.xxx.xxx.xxx/24 brd 133.xxx.xxx.255 scope global noprefixroute enp1s0
 [ifconfigの出力結果に書いてあること](https://qiita.com/pe-ta/items/aff8db72530c6baa11b2)
 
 
+<br>
+
