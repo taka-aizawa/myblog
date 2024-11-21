@@ -307,7 +307,7 @@
 <p><strong>4. nslookup・curlで確認</strong></p>
 <p>この状態でnslookupとcurlを実行してみたところ、特にDNSを指定しなくても疎通できるようになった！</p>
 <br>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-06T01:56:14.000Z" title="2024/11/6 10:56:14">2024-11-06</time>に投稿</span><span class="level-item"><time dateTime="2024-11-11T08:25:59.243Z" title="2024/11/11 17:25:59">2024-11-11</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/network/">network</a></span><span class="level-item">9分で読む (約1327語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/2024/11/wireguard-setting-failure/">wiregurad設定失敗メモ</a></p><div class="content"><p><a target="_blank" rel="noopener" href="https://it.impress.co.jp/category/c320097">某テストベッド</a>に参加するためのネットワーク設定が上手くいかない。</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-06T01:56:14.000Z" title="2024/11/6 10:56:14">2024-11-06</time>に投稿</span><span class="level-item"><time dateTime="2024-11-21T11:52:40.146Z" title="2024/11/21 20:52:40">2024-11-21</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/network/">network</a></span><span class="level-item">9分で読む (約1345語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/2024/11/wireguard-setting-failure/">wiregurad設定失敗メモ</a></p><div class="content"><p><a target="_blank" rel="noopener" href="https://it.impress.co.jp/category/c320097">某テストベッド</a>に参加するためのネットワーク設定が上手くいかない。</p>
 <p>色々試した記録を残す。</p>
 <br>
 
@@ -348,7 +348,10 @@
 
 <h3><span id="試行21つのnicに複数の固定ipアドレスを設定してみる"><u>試行2：1つのNICに複数の固定IPアドレスを設定してみる</u></span></h3><p>参考にさせていただいたのは<a target="_blank" rel="noopener" href="https://qiita.com/rat-engineer755/items/b04e128ee1d2cb4437a5">こちら</a></p>
 <p>まず、cloud-initを無効化のためのファイル作成。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vi /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg</span><br><span class="line"></span><br><span class="line"># sudo touch /etc/cloud/cloud-init.disabledでも良い？</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vi /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg</span><br><span class="line"># sudo touch /etc/cloud/cloud-init.disabledでも良い？</span><br></pre></td></tr></table></figure>
+<br>
+↓をファイル内に追記して保存。
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">network: &#123;config: disabled&#125;</span><br></pre></td></tr></table></figure>
 <br>
 
 <p>現在の設定のバックアップ。</p>
