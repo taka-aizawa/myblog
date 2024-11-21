@@ -108,8 +108,12 @@ pingでどこが通っているか試してみると、ルータ端末のぶら�
 
 ~~~
 $ sudo vi /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
-
 # sudo touch /etc/cloud/cloud-init.disabledでも良い？
+~~~
+<br>
+↓をファイル内に追記して保存。
+~~~
+network: {config: disabled}
 ~~~
 <br>
 
