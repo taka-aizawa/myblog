@@ -16,13 +16,13 @@ category: network
 
 ## <u>1. NICに固定IPアドレスを追加</u>
 
-[失敗メモ]（https://tkaizawa.github.io/myblog/2024/11/wireguard-setting-failure/）で行っていた、固定IPをNICに設定。
+[失敗メモ](https://tkaizawa.github.io/myblog/2024/11/wireguard-setting-failure/)で行っていた、固定IPをNICに設定。
 
 <br>
 
 ## <u>2. DNSを指定して名前解決を実行</u>
 
-[失敗メモ]（https://tkaizawa.github.io/myblog/2024/11/wireguard-setting-failure/）ではこの時点でnslookupコマンドが通らなかったが、明示的にDNSを指定して試してみたところ、無事名前解決ができた。
+[失敗メモ](https://tkaizawa.github.io/myblog/2024/11/wireguard-setting-failure/)ではこの時点でnslookupコマンドが通らなかったが、明示的にDNSを指定して試してみたところ、無事名前解決ができた。
 
 ~~~
 $ nslookup xxxxxx 10.250.aaa.aaa
