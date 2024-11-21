@@ -169,7 +169,7 @@
 <p>【参考】<a target="_blank" rel="noopener" href="https://tech-lab.sios.jp/archives/37377">ssh接続のポートフォワーディングは3種類ある！</a></p>
 <p>が、あまり使わないかも？余裕がある時にまた勉強。</p>
 <p>【参考】<a target="_blank" rel="noopener" href="https://qiita.com/kazu_ppp/items/55e11b1b64683e3b85a8">SSHポートフォワーディング機能のおさらいと利用例</a></p>
-<br></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-07T01:56:14.000Z" title="2024/11/7 10:56:14">2024-11-07</time>に投稿</span><span class="level-item"><time dateTime="2024-11-11T08:26:13.862Z" title="2024/11/11 17:26:13">2024-11-11</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/network/">network</a></span><span class="level-item">4分で読む (約545語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/2024/11/wireguard-setting-success/">wiregurad設定成功メモ</a></p><div class="content"><p>ようやくwireguardの設定がうまくいったので、メモに残す。<br><br></p>
+<br></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-07T01:56:14.000Z" title="2024/11/7 10:56:14">2024-11-07</time>に投稿</span><span class="level-item"><time dateTime="2024-11-21T11:59:00.579Z" title="2024/11/21 20:59:00">2024-11-21</time>に更新</span><span class="level-item"><a class="link-muted" href="/myblog/categories/network/">network</a></span><span class="level-item">4分で読む (約541語)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/myblog/2024/11/wireguard-setting-success/">wiregurad設定成功メモ</a></p><div class="content"><p>ようやくwireguardの設定がうまくいったので、メモに残す。<br><br></p>
 <hr>
 <h1><span id="手順">手順</span></h1><hr>
 <!-- toc -->
@@ -182,10 +182,10 @@
 </ul>
 <!-- tocstop -->
 
-<h2><span id="1-nicに固定ipアドレスを追加"><u>1. NICに固定IPアドレスを追加</u></span></h2><p>[失敗メモ]（<a href="https://tkaizawa.github.io/myblog/2024/11/wireguard-setting-failure/%EF%BC%89%E3%81%A7%E8%A1%8C%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F%E3%80%81%E5%9B%BA%E5%AE%9AIP%E3%82%92NIC%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%80%82">https://tkaizawa.github.io/myblog/2024/11/wireguard-setting-failure/）で行っていた、固定IPをNICに設定。</a></p>
+<h2><span id="1-nicに固定ipアドレスを追加"><u>1. NICに固定IPアドレスを追加</u></span></h2><p><a href="https://tkaizawa.github.io/myblog/2024/11/wireguard-setting-failure/">失敗メモ</a>で行っていた、固定IPをNICに設定。</p>
 <br>
 
-<h2><span id="2-dnsを指定して名前解決を実行"><u>2. DNSを指定して名前解決を実行</u></span></h2><p>[失敗メモ]（<a href="https://tkaizawa.github.io/myblog/2024/11/wireguard-setting-failure/%EF%BC%89%E3%81%A7%E3%81%AF%E3%81%93%E3%81%AE%E6%99%82%E7%82%B9%E3%81%A7nslookup%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%8C%E9%80%9A%E3%82%89%E3%81%AA%E3%81%8B%E3%81%A3%E3%81%9F%E3%81%8C%E3%80%81%E6%98%8E%E7%A4%BA%E7%9A%84%E3%81%ABDNS%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%A6%E8%A9%A6%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%81%A8%E3%81%93%E3%82%8D%E3%80%81%E7%84%A1%E4%BA%8B%E5%90%8D%E5%89%8D%E8%A7%A3%E6%B1%BA%E3%81%8C%E3%81%A7%E3%81%8D%E3%81%9F%E3%80%82">https://tkaizawa.github.io/myblog/2024/11/wireguard-setting-failure/）ではこの時点でnslookupコマンドが通らなかったが、明示的にDNSを指定して試してみたところ、無事名前解決ができた。</a></p>
+<h2><span id="2-dnsを指定して名前解決を実行"><u>2. DNSを指定して名前解決を実行</u></span></h2><p><a href="https://tkaizawa.github.io/myblog/2024/11/wireguard-setting-failure/">失敗メモ</a>ではこの時点でnslookupコマンドが通らなかったが、明示的にDNSを指定して試してみたところ、無事名前解決ができた。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ nslookup xxxxxx 10.250.aaa.aaa</span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">Name:	xxxxxx</span><br><span class="line">Address: 10.250.b.b</span><br></pre></td></tr></table></figure>
 <br>
 <br>
